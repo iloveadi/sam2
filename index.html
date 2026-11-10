@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三韓詩龜鑑(삼한시귀감) 에서 (2) - 고려 한시 정선 웹 도록</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #fcfbf7;
+      --bg-card: #ffffff;
+      --bg-subtle: #f5f2e9;
+      --text-main: #2b2b2b;
+      --text-muted: #6b665f;
+      --accent: #8b322c; /* 은은한 주묵(朱墨)색 */
+      --accent-light: #fbeee9;
+      --accent-gold: #b38234;
+      --border-color: #e5ded3;
+      --hanja-font: 'Noto Serif KR', serif;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --card-radius: 12px;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #18191c;
+      --bg-card: #222327;
+      --bg-subtle: #2b2c32;
+      --text-main: #e6e4dc;
+      --text-muted: #a39f96;
+      --accent: #d96b5a;
+      --accent-light: #362524;
+      --accent-gold: #d4a753;
+      --border-color: #383940;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="hanji"] {
+      --bg-primary: #f4ede1;
+      --bg-card: #faf6ee;
+      --bg-subtle: #eae1d1;
+      --text-main: #282420;
+      --text-muted: #5e574f;
+      --accent: #782d27;
+      --accent-light: #ece0d6;
+      --accent-gold: #966b26;
+      --border-color: #d8cbbb;
+      --shadow: 0 4px 16px rgba(90, 70, 50, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+
+    /* 상단 헤더 */
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .brand-title h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title .badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .subtitle-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* 컨트롤 툴바 */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      padding: 0.45rem 0.9rem 0.45rem 2rem;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      outline: none;
+      width: 180px;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      width: 230px;
+      border-color: var(--accent);
+      background-color: var(--bg-card);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      fill: var(--text-muted);
+    }
+
+    .toggle-group {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      background: var(--bg-subtle);
+      padding: 0.25rem 0.4rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-toggle {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.82rem;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+
+    .btn-toggle.active {
+      background: var(--bg-card);
+      color: var(--accent);
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .theme-select {
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* 메인 컨테이너 */
+    .container {
+      max-width: 1240px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* 좌측 사이드바 네비게이션 */
+    .sidebar {
+      position: sticky;
+      top: 5rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      max-height: calc(100vh - 6.5rem);
+      overflow-y: auto;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .author-filter-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .author-item {
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+      color: var(--text-main);
+    }
+
+    .author-item:hover {
+      background-color: var(--bg-subtle);
+      color: var(--accent);
+    }
+
+    .author-item.active {
+      background-color: var(--accent-light);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .author-count {
+      font-size: 0.75rem;
+      background-color: var(--bg-subtle);
+      padding: 0.1rem 0.4rem;
+      border-radius: 10px;
+      color: var(--text-muted);
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.84rem;
+    }
+
+    .toc-item a {
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: 0.15s;
+    }
+
+    .toc-item a:hover {
+      color: var(--accent);
+      background: var(--bg-subtle);
+    }
+
+    .toc-item a:hover strong {
+      color: var(--accent) !important;
+    }
+
+    /* 시 목록 메인 영역 */
+    .poems-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* 인트로 카드 */
+    .intro-banner {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-subtle) 100%);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--accent);
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .intro-banner h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .intro-banner p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+    .stat-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .stat-badge strong {
+      color: var(--accent);
+    }
+
+    /* 시 카드 */
+    .poem-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .poem-card:hover {
+      border-color: var(--accent-gold);
+    }
+
+    .poem-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .poem-title-box h3 {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 0.6rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .title-hanja-group {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      line-height: 1.4;
+    }
+
+    .title-char-box {
+      margin-right: 0.15em;
+    }
+
+    .title-char-box .char-hanja {
+      font-size: 1.45rem;
+      color: var(--accent);
+    }
+
+    .title-char-box .char-sound {
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .title-char-box .char-hoon {
+      font-size: 0.62rem;
+      font-weight: 600;
+    }
+
+    .title-trans-sub {
+      font-size: 1.05rem;
+      font-weight: normal;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .poem-title-box .title-hanja {
+      font-size: 1.25rem;
+      color: var(--text-main);
+      margin-left: 0.5rem;
+    }
+
+    .poem-title-box .poem-meta {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    .poem-meta .author-tag {
+      font-weight: 600;
+      color: var(--accent-gold);
+    }
+
+    .poem-meta .form-tag {
+      background: var(--bg-subtle);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+    }
+
+    .poem-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-action {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: 0.2s;
+    }
+
+    .btn-action:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* 시 원문 & 번역 레이아웃 */
+    .poem-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 860px) {
+      .poem-body {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+    }
+
+    /* 한자 원문 영역 */
+    .poem-original {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.25rem;
+      line-height: 2.2;
+      color: var(--text-main);
+      letter-spacing: 0.15em;
+      background: var(--bg-subtle);
+      padding: 1.25rem 1.5rem;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .line-group {
+      margin-bottom: 0.3rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      transition: background-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .line-group:hover, .line-group.highlight-paired {
+      background-color: var(--accent-light);
+    }
+
+    .line-group.couplet-gap {
+      margin-bottom: 0.85rem;
+    }
+
+    .char-box {
+      display: inline-block;
+      text-align: center;
+      margin-right: 0.22em;
+      position: relative;
+      cursor: pointer;
+      vertical-align: bottom;
+      padding: 0 0.15em;
+      border-radius: 4px;
+      transition: background-color 0.15s;
+    }
+
+    .char-box:hover, .char-box:focus {
+      background-color: rgba(139, 50, 44, 0.1);
+      outline: none;
+    }
+
+    .char-hanja {
+      display: block;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .char-sound {
+      display: block;
+      font-size: 0.72rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-top: 0.15rem;
+      font-weight: 500;
+    }
+
+    .char-hoon {
+      display: none;
+      font-size: 0.62rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: var(--accent-gold);
+      line-height: 1.1;
+      margin-top: 0.15rem;
+      font-weight: 600;
+      white-space: nowrap;
+      letter-spacing: -0.05em;
+    }
+
+    /* 3단계 읽기 모드 제어 */
+    body[data-char-mode="sound"] .char-sound { display: block; }
+    body[data-char-mode="sound"] .char-hoon { display: none; }
+
+    body[data-char-mode="hoon"] .char-sound { display: none; }
+    body[data-char-mode="hoon"] .char-hoon { display: block; }
+
+    body[data-char-mode="none"] .char-sound { display: none; }
+    body[data-char-mode="none"] .char-hoon { display: none; }
+
+    /* 개별 한자 호버 툴팁 */
+    .char-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #222327;
+      color: #ffffff;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 150;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      letter-spacing: normal;
+    }
+
+    .char-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #222327 transparent transparent transparent;
+    }
+
+    .char-box:hover .char-tooltip,
+    .char-box:focus .char-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-6px);
+    }
+
+    .tt-char {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffcf70;
+      margin-right: 0.35rem;
+    }
+
+    .tt-desc {
+      color: #f0ede6;
+      font-weight: 500;
+    }
+
+    /* 한글 번역 영역 */
+    .poem-translation {
+      font-size: 0.98rem;
+      line-height: 2.1;
+      color: var(--text-main);
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-subtle);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .trans-line {
+      margin-bottom: 0.3rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      transition: background-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .trans-line:hover, .trans-line.highlight-paired {
+      background-color: var(--accent-light);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .trans-line.couplet-gap {
+      margin-bottom: 0.85rem;
+    }
+
+    body.hide-translation .poem-translation {
+      display: none;
+    }
+
+    body.hide-translation .poem-body {
+      grid-template-columns: 1fr;
+    }
+
+    /* 주석 & 해설 박스 */
+    .poem-details {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .note-box {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem;
+    }
+
+    .note-box-title {
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .note-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .note-item {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .note-key {
+      font-weight: 600;
+      color: var(--accent);
+      min-width: fit-content;
+      font-family: 'Noto Serif KR', serif;
+    }
+
+    /* 토스트 알림 */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 반응형 */
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        margin-bottom: 1rem;
+      }
+      .toc-list {
+        max-height: 200px;
+        overflow-y: auto;
+      }
+    }
+
+    /* 스마트폰 모바일 최적화 (640px 이하) */
+    @media (max-width: 640px) {
+      .header-inner {
+        padding: 0.75rem 0.85rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+
+      .brand-title {
+        justify-content: space-between;
+      }
+
+      .brand-title h1 {
+        font-size: 1.25rem;
+      }
+
+      .brand-title .subtitle-text {
+        display: none;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .search-box input {
+        width: 100% !important;
+      }
+
+      .controls-sub-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .container {
+        padding: 0 0.6rem;
+        margin: 0.75rem auto;
+        gap: 1rem;
+      }
+
+      .intro-banner {
+        padding: 1rem;
+      }
+
+      .intro-banner h2 {
+        font-size: 1.15rem;
+      }
+
+      .stat-row {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .poem-card {
+        padding: 1.25rem 0.85rem;
+        border-radius: 10px;
+      }
+
+      .poem-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .poem-title-box h3 {
+        font-size: 1.2rem;
+      }
+
+      .poem-title-box .title-hanja {
+        font-size: 1.05rem;
+        display: block;
+        margin-left: 0;
+        margin-top: 0.15rem;
+      }
+
+      .poem-original {
+        font-size: clamp(0.98rem, 4.3vw, 1.18rem);
+        padding: 0.9rem 0.65rem;
+        line-height: 2.1;
+        letter-spacing: 0.05em;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .poem-translation {
+        padding: 0.9rem 0.85rem;
+        font-size: 0.92rem;
+        line-height: 1.85;
+      }
+
+      .char-box {
+        margin-right: 0.08em;
+        padding: 0 0.08em;
+      }
+
+      .char-sound {
+        font-size: 0.64rem;
+      }
+
+      .char-hoon {
+        font-size: 0.56rem;
+        letter-spacing: -0.08em;
+      }
+
+      /* 모바일에서는 hover 툴팁 대신 하단 고정 팝업 바 사용 */
+      .char-tooltip {
+        display: none !important;
+      }
+
+      .sidebar {
+        padding: 0.85rem;
+      }
+
+      .sidebar .author-filter-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.4rem;
+      }
+
+      .sidebar .author-item {
+        flex-shrink: 0;
+        border: 1px solid var(--border-color);
+        padding: 0.35rem 0.65rem;
+        font-size: 0.82rem;
+      }
+
+      .sidebar .toc-list {
+        max-height: 140px;
+      }
+    }
+
+    /* 모바일 전용 하단 한자 훈음 안내 바 */
+    .mobile-hanja-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(30, 32, 38, 0.96);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transform: translateY(110%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .mobile-hanja-bar.active {
+      transform: translateY(0);
+    }
+
+    .mhb-content {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .mhb-char {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #ffcf70;
+      line-height: 1;
+    }
+
+    .mhb-desc {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #e6e4dc;
+    }
+
+    .mhb-close {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    /* 인쇄 전용 스타일 */
+    @media print {
+      header, .sidebar, .btn-action, .toast {
+        display: none !important;
+      }
+      .container {
+        display: block;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .poem-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+        margin-bottom: 2rem;
+      }
+      .poem-original, .poem-translation {
+        background: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-title">
+        <h1>三韓詩龜鑑 <span style="font-weight:300; font-size:1.1rem; color:var(--text-muted);">(2)</span></h1>
+        <span class="badge">고려 명시선(高麗名詩選)</span>
+        <span class="subtitle-text">歷代漢詩選讀 · 이현일 교수</span>
+      </div>
+
+      <!-- 컨트롤 툴바 -->
+      <div class="controls">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="searchInput" placeholder="시 제목, 작가, 구절 검색...">
+        </div>
+
+        <div class="controls-sub-row">
+          <div class="toggle-group" id="charModeGroup" title="한자 아래 표기 방식 선택 (음독 / 개별 훈과 음 / 숨김)">
+            <span style="font-size:0.75rem; color:var(--text-muted); margin-left:0.2rem; font-weight:600;">한자:</span>
+            <button class="btn-toggle active" data-mode="sound" title="한자 아래 음독(소리)만 표시">음독</button>
+            <button class="btn-toggle" data-mode="hoon" title="한자 아래 개별 훈(뜻)과 음(소리) 모두 표시">훈과 음</button>
+            <button class="btn-toggle" data-mode="none" title="한자만 보기 (음독·훈음 숨김)">숨김</button>
+          </div>
+
+          <div class="toggle-group">
+            <button class="btn-toggle active" id="toggleTransBtn" title="현대어 한글 번역 토글">해석</button>
+          </div>
+
+          <div class="toggle-group">
+            <button class="btn-toggle" id="fontDecBtn" title="글자 크기 축소">A-</button>
+            <button class="btn-toggle" id="fontIncBtn" title="글자 크기 확대">A+</button>
+          </div>
+
+          <select class="theme-select" id="themeSelect" title="테마 변경">
+            <option value="light">기본(백지)</option>
+            <option value="hanji">한지(韓紙)</option>
+            <option value="dark">다크(墨)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 레이아웃 -->
+  <div class="container">
+    <!-- 좌측 사이드바 (작품 목차 및 작가 필터) -->
+    <aside class="sidebar">
+      <div class="sidebar-section-title">작품 목록 (색인)</div>
+      <ul class="toc-list" id="tocList">
+        <!-- JS로 동적 생성 -->
+      </ul>
+
+      <div class="sidebar-section-title" style="margin-top: 1.5rem;">작가별 보기</div>
+      <ul class="author-filter-list" id="authorFilterList">
+        <li class="author-item active" data-author="all">
+          <span>전체 시 보기</span>
+          <span class="author-count" id="totalCount">30</span>
+        </li>
+        <!-- JS로 동적 생성 -->
+      </ul>
+    </aside>
+
+    <!-- 시 목록 영역 -->
+    <main class="poems-content">
+      <!-- 안내 배너 -->
+      <section class="intro-banner">
+        <h2>『三韓詩龜鑑(삼한시귀감)』에서 (2)</h2>
+        <p>고려 시대 한문학을 대표하는 명시선집 《삼한시귀감》의 두 번째 모음입니다. 최유청, 김극기, 임춘, 이인로, 이규보, 진화 등 고려의 문호들이 남긴 빼어난 절구·율시·고시 작품들을 원문 한자음, 현대어 번역, 시어 풀이와 함께 체계적으로 정리하였습니다.</p>
+        <div class="stat-row">
+          <div class="stat-badge">수록 작가 <strong>10인</strong></div>
+          <div class="stat-badge">수록 작품 <strong>30편</strong></div>
+        </div>
+      </section>
+
+      <!-- 시 카드 컨테이너 -->
+      <div id="poemCardContainer">
+        <!-- JS로 동적 카드 생성 -->
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">원문이 복사되었습니다.</div>
+
+  <!-- 모바일 터치 시 나타나는 하단 훈음 안내 바 -->
+  <div class="mobile-hanja-bar" id="mobileHanjaBar">
+    <div class="mhb-content">
+      <span class="mhb-char" id="mhbChar">春</span>
+      <span class="mhb-desc" id="mhbDesc">봄 춘</span>
+    </div>
+    <button class="mhb-close" id="mhbCloseBtn" title="닫기">&times;</button>
+  </div>
+
+  <script>
+    // 시 데이터 목록 (페이지 9부터 페이지 23까지의 25수)
+    const poemsData = [
+      {
+        id: "poem-1",
+        titleSound: "잡흥구수지일",
+        author: "최유청(崔惟淸)",
+        authorHanja: "崔惟淸",
+        authorDesc: "1095~1174, 고려 중기 학자·문신. 자는 직재(直哉), 시호는 문숙(文肅). 청렴하고 문장에 능함.",
+        title: "잡흥 9수 중 제1수",
+        titleHanja: "雜興九首之一",
+        form: "오언율시 (五言律詩)",
+        page: "Page 9 (p.1)",
+        lines: [
+          { hanja: "春草忽已綠", hangul: "춘초홀이록", trans: "봄풀은 어느새 이미 푸르러졌고" },
+          { hanja: "滿園胡蝶飛", hangul: "만원호접비", trans: "동산 가득 나비들이 펄펄 날아다니네." },
+          { hanja: "東風欺人睡", hangul: "동풍기인수", trans: "봄바람은 사람의 졸음을 틈타 흔들더니" },
+          { hanja: "吹起床上衣", hangul: "취기상상의", trans: "침상 위에 걸쳐 둔 옷을 날려 흩날리네." },
+          { hanja: "覺來寂無事", hangul: "각래적무사", trans: "잠에서 깨어나니 적막하여 아무 일 없고" },
+          { hanja: "林外射落暉", hangul: "임외사락휘", trans: "숲 밖에서 지는 해 그림자 비쳐 드네." },
+          { hanja: "倚檻欲嘆息", hangul: "의함욕탄식", trans: "난간에 기대어 절로 한숨지으려다" },
+          { hanja: "靜然已忘機", hangul: "정연이망기", trans: "고요한 마음에 문득 세속의 온갖 기심(機心)을 잊었노라." }
+        ],
+        notes: [
+          { key: "雜興(잡흥)", desc: "마음에 일어나는 감흥을 일정한 형식에 구애 없이 자유롭게 읊은 시." },
+          { key: "東風(동풍)", desc: "봄바람(춘풍). 동쪽에서 불어오는 온화한 바람." },
+          { key: "落暉(낙휘)", desc: "저물녘에 비치는 석양빛." },
+          { key: "忘機(망기)", desc: "세속적인 욕심이나 잇속을 따지는 꾀(기심, 機心)를 깨끗이 잊고 무심(無心)의 자연 상태로 돌아감." }
+        ],
+        commentary: "봄날 한적한 전원에서 낮잠을 자다 깨어난 순간의 고요함과, 지는 해를 바라보며 세속의 번뇌와 기심을 훌훌 털어버리는 담박한 선미(禪味)와 은일의 정취를 노래한 오언율시입니다."
+      },
+      {
+        id: "poem-2",
+        titleSound: "숙향촌",
+        author: "김극기(金克己)",
+        authorHanja: "金克己",
+        authorDesc: "고려 명종 때의 문신·시인. 자는 신지(愼之). 시명이 높아 당대 이규보 등과 필적함.",
+        title: "향촌에서 묵다",
+        titleHanja: "宿香村",
+        form: "오언배율 24구 (五言排律)",
+        page: "Page 10 (p.2)",
+        lines: [
+          { hanja: "雲行四五里", hangul: "운행사오리", trans: "구름을 따라 사오 리를 걸어가서" },
+          { hanja: "漸下蒼山根", hangul: "점하창산근", trans: "점차 푸른 산자락 아래로 내려가니," },
+          { hanja: "烏鳶忽驚起", hangul: "오연홀경기", trans: "까마귀와 솔개가 문득 놀라 날아오르고" },
+          { hanja: "始見桑柘村", hangul: "시견상자촌", trans: "비로소 뽕나무·산뽕나무 우거진 마을이 보이네." },
+          { hanja: "村婦理蓬鬢", hangul: "촌부리봉빈", trans: "마을 아낙은 헝클어진 쑥대머리를 매만지며" },
+          { hanja: "出開林下門", hangul: "출개임하문", trans: "숲 아래 사립문을 나와서 열어주네." },
+          { hanja: "靑苔滿古巷", hangul: "청태만고항", trans: "오래된 고샅길엔 푸른 이끼 가득하고" },
+          { hanja: "綠稻侵頹垣", hangul: "녹도침퇴원", trans: "푸른 벼이삭은 무너진 흙담까지 밀려와 자라있네." },
+          { hanja: "茅簷坐未久", hangul: "모첨좌미구", trans: "초가 처마 밑에 앉은 지 얼마 되지 않아" },
+          { hanja: "落日低瓊盆", hangul: "낙일저경분", trans: "지는 해는 옥쟁반처럼 낮게 기울고," },
+          { hanja: "伐薪忽照夜", hangul: "벌신홀조야", trans: "장작불을 피워 어두운 밤을 밝히며" },
+          { hanja: "魚蠏腥盤飡", hangul: "어해성반손", trans: "물고기와 게 비린내가 소박한 밥상에 가득하네." },
+          { hanja: "耕夫各入室", hangul: "경부각입실", trans: "농부들은 저마다 방 안으로 들어가고" },
+          { hanja: "四壁農談諠", hangul: "사벽농담훤", trans: "사방 벽 너머로 농사짓는 이야기 시끌벅적하네." },
+          { hanja: "勃磎作魚貫", hangul: "발계작어관", trans: "아낙네들은 엮은 물고기 꿰미처럼 줄지어 다니고" },
+          { hanja: "咿喔紛鳥言", hangul: "이악분조언", trans: "닭 울음소리와 새 지저귐 소리 어지럽게 뒤섞이네." },
+          { hanja: "我時耿不寐", hangul: "아시경불매", trans: "나는 이때 마음에 걸려 잠 못 이루고" },
+          { hanja: "欹枕臨西軒", hangul: "기침림서헌", trans: "베개를 비스듬히 벤 채 서쪽 창가에 기대었네." },
+          { hanja: "露冷螢火濕", hangul: "로랭형화습", trans: "이슬은 차가워 반딧불이 젖어 들고" },
+          { hanja: "寒蛩噪空園", hangul: "한공조공원", trans: "차가운 귀뚜라미는 빈 뜰에서 울어대네." },
+          { hanja: "悲吟卧待曙", hangul: "비음와대서", trans: "슬피 읊조리며 누워 동트기를 기다리니" },
+          { hanja: "碧海含朝暾", hangul: "벽해함조돈", trans: "푸른 바다가 아침 햇살을 머금는구나." }
+        ],
+        notes: [
+          { key: "桑柘村(상자촌)", desc: "누에를 치기 위해 뽕나무와 꾸지뽕나무를 심은 농촌 마을." },
+          { key: "蓬鬢(봉빈)", desc: "쑥대처럼 흐트러진 귀밑머리. 꾸밈없는 시골 여인의 모습." },
+          { key: "瓊盆(경분)", desc: "옥으로 만든 쟁반. 지는 붉고 둥근 해를 비유." },
+          { key: "魚貫(어관)", desc: "물고기를 줄줄이 꿴 것처럼 나란히 차례로 늘어선 모습." },
+          { key: "朝暾(조돈)", desc: "아침에 솟아오르는 붉은 해(아침 햇살)." }
+        ],
+        commentary: "시골 마을의 소박하고 활기찬 저녁 풍경(아낙네의 맞이, 흙담을 넘는 벼, 생선과 게가 오른 밥상, 농담을 나누는 농부들)부터 나그네로서 홀로 잠 못 이루며 맞이하는 새벽 바다의 일출까지, 생생한 사실주의적 필치로 그려낸 농촌 기행시의 수작입니다."
+      },
+      {
+        id: "poem-3",
+        titleSound: "촌가",
+        author: "김극기(金克己)",
+        authorHanja: "金克己",
+        authorDesc: "고려 명종 때 문신·시인.",
+        title: "시골집 (촌가)",
+        titleHanja: "村家",
+        form: "칠언율시 (七言律詩)",
+        page: "Page 11 (p.3)",
+        lines: [
+          { hanja: "靑山斷處兩三家", hangul: "청산단처양삼가", trans: "푸른 산맥이 끊어진 곳에 두세 채 집이 있고" },
+          { hanja: "抱壠縈回一徑斜", hangul: "포롱영회일경사", trans: "고갯마루를 감싸며 굽이굽이 좁은 오솔길 비스듬하네." },
+          { hanja: "讖雨癈池蛙閣閣", hangul: "참우폐지와합합", trans: "비 올 것을 예보하듯 폐허의 연못엔 개구리 개골개골 울고" },
+          { hanja: "相風高樹鵲査査", hangul: "상풍고수작사사", trans: "바람을 살피듯 높은 나무 위엔 까치가 깍깍 우짖네." },
+          { hanja: "境幽柳巷埋荒草", hangul: "경유유항매황초", trans: "주변은 그윽하여 버들 골목엔 거친 잡초만 묻혀 있고" },
+          { hanja: "人寂柴門掩落花", hangul: "인적시문엄락화", trans: "인가엔 인적조차 적막하여 사립문엔 떨어진 꽃잎만 덮였네." },
+          { hanja: "塵外勝遊聊自適", hangul: "진외승유료자적", trans: "속세 밖의 이 훌륭한 유람에 그저 스스로 흡족하니" },
+          { hanja: "笑他奔走覓紛華", hangul: "소타분주멱분화", trans: "부귀영화 찾아 어지러이 분주한 세속 사람들을 비웃노라." }
+        ],
+        notes: [
+          { key: "讖雨(참우)", desc: "비가 올 징조를 미리 알림(개구리의 울음소리로 비를 예측)." },
+          { key: "閣閣(합합)", desc: "개구리가 우는 의성어(개골개골)." },
+          { key: "相風(상풍)", desc: "바람의 방향이나 기세를 살핌." },
+          { key: "査査(사사)", desc: "까치가 지저귀는 소리(깍깍)." },
+          { key: "紛華(분화)", desc: "어지럽고 화려한 세속의 명리와 부귀." }
+        ],
+        commentary: "깊은 산골 외딴 마을의 정경을 감각적인 음성상징어(閣閣, 査査)와 대구로 묘사하고, 번잡한 세속의 영달을 좇아 뛰는 사람들을 뒤로한 채 유유자적하는 은사의 높은 운치를 노래했습니다."
+      },
+      {
+        id: "poem-4",
+        titleSound: "총석정리학사지심운",
+        author: "김극기(金克己)",
+        authorHanja: "金克己",
+        authorDesc: "고려 명종 때 문신·시인.",
+        title: "총석정에서 이학사 지심의 시에 차운하다",
+        titleHanja: "叢石亭李學士知深韻",
+        form: "칠언율시 (七言律詩)",
+        page: "Page 11 (p.3)",
+        lines: [
+          { hanja: "東遊大壑訪鴻濛", hangul: "동유대학방홍몽", trans: "동쪽으로 넓고 큰 바다를 유람하여 천지개벽의 태초를 찾으니" },
+          { hanja: "萬象奔趨一望中", hangul: "만상분추일망중", trans: "온갖 삼라만상이 한눈에 일제히 달려드는 듯하네." },
+          { hanja: "石束鸞笙臨碧海", hangul: "석속란생임벽해", trans: "돌기둥은 난새 생황을 묶어 세운 듯 푸른 바다를 굽어보고" },
+          { hanja: "松飛孔蓋向靑空", hangul: "송비공개향청공", trans: "솔솔 부는 솔바람은 공작 깃 일산처럼 푸른 하늘로 솟구치네." },
+          { hanja: "大聲拂耳鯨牙浪", hangul: "대성불이경아랑", trans: "고래 이빨 같은 거센 파도는 귀를 스쳐 큰 소리로 울부짖고" },
+          { hanja: "寒氣侵膚鶴羽風", hangul: "한기침부학우풍", trans: "학의 깃을 스치는 차가운 바람결은 살결 속까지 스며드네." },
+          { hanja: "恐我前身非俗士", hangul: "공아전신비속사", trans: "아마도 나의 전생은 세속의 범부가 아니었을 것이니" },
+          { hanja: "眞遊亦與四仙同", hangul: "진유역여사선동", trans: "참된 신선의 유람이 신라의 사선(四仙)과 같구나." }
+        ],
+        notes: [
+          { key: "大壑(대학)", desc: "끝없이 넓고 깊은 바다. 동해 바다를 가리킴." },
+          { key: "鴻濛(홍몽)", desc: "천지가 아직 나뉘지 않은 태초의 원기(元氣) 혼돈 상태." },
+          { key: "鸞笙(난생)", desc: "난새 모양을 새긴 생황. 총석정의 육각 돌기둥(주상절리)이 묶여 솟아 있는 모습을 비유." },
+          { key: "孔蓋(공개)", desc: "공작새 깃으로 장식한 신선의 수레 덮개(일산)." },
+          { key: "四仙(사선)", desc: "신라의 네 화랑(영랑, 술랑, 남랑, 안상). 금강산과 총석정 등 관동팔경을 유람하며 심신을 닦음." }
+        ],
+        commentary: "관동팔경 중 최고의 절경인 총석정 주상절리의 장엄한 풍광을 난새의 생황과 신선의 일산, 고래 이빨 같은 파도로 웅장하게 형상화하고, 자신이 전생의 신선이자 사선과 노니는 듯한 도가적 호방함을 노래했습니다."
+      },
+      {
+        id: "poem-5",
+        titleSound: "취시가",
+        author: "김극기(金克己)",
+        authorHanja: "金克己",
+        authorDesc: "고려 명종 때 문신·시인.",
+        title: "취하여 부르는 노래 (취시가)",
+        titleHanja: "醉時歌",
+        form: "칠언고시 22구 (七言古詩)",
+        page: "Page 12 (p.4)",
+        lines: [
+          { hanja: "釣必連海上之六鼇", hangul: "조필련해상지육오", trans: "낚시를 하려면 반드시 바다 위의 거대한 여섯 자라를 낚아채야 하고" },
+          { hanja: "射必落日中之九烏", hangul: "사필락일중지구오", trans: "활을 쏘려면 반드시 하늘 해 속의 아홉 마리 까마귀를 떨어뜨려야 하네." },
+          { hanja: "六鼇動兮魚龍震蕩", hangul: "육오동혜어룡진탕", trans: "여섯 자라가 움직이면 물고기와 용이 온 바다를 뒤흔들고" },
+          { hanja: "九烏出兮草木焦枯", hangul: "구오출혜초목초고", trans: "아홉 까마귀가 나타나면 온 누리의 초목이 바짝 타버리지 않던가!" },
+          { hanja: "男兒要自立奇節", hangul: "남아요자립기절", trans: "대장부라면 마땅히 스스로 기이하고 드높은 절개를 세워야 할 터" },
+          { hanja: "弱羽纖鱗安足誅", hangul: "약우섬린안족주", trans: "작은 날벌레나 잔물고기 따위를 어찌 베어 죽일 가치나 있겠는가?" },
+          { hanja: "紫纓雲孫始墮地", hangul: "자영운손시타지", trans: "붉은 갓끈 맨 높은 집안의 후손으로 이 세상에 태어나서" },
+          { hanja: "自謂壯大陳雄圖", hangul: "자위장대진웅도", trans: "스스로 자라나 웅대한 포부를 천하에 펼치리라 자부하였네." },
+          { hanja: "鍊石欲補東南缺", hangul: "연석욕보동남결", trans: "여와처럼 오색 돌을 달구어 무너진 동남쪽 하늘을 메우려 했고" },
+          { hanja: "鑿石將通西北迂", hangul: "착석장통서북우", trans: "바위를 뚫어서 서북쪽 험한 길을 시원스레 통하게 하려 했거늘," },
+          { hanja: "嗟哉計大未易報", hangul: "차재계대미이보", trans: "아아! 뜻이 너무나 커서 세상에 쉽게 갚아지지 않으니" },
+          { hanja: "半世飄零爲腐儒", hangul: "반세표령위부유", trans: "반평생을 이리저리 떠돌며 한낱 썩은 선비가 되었구나." },
+          { hanja: "不隨馮異西登隴", hangul: "불수풍이서등롱", trans: "후한의 풍이(馮異)를 따라 서쪽 농서 땅을 평정하러 가지도 못했고" },
+          { hanja: "不逐孔明南渡瀘", hangul: "불축공명남도호", trans: "제갈공명을 좇아 남쪽 노수(瀘水)를 건너 정벌하지도 못하였네." },
+          { hanja: "論詩說賦破屋下", hangul: "론시설부파옥하", trans: "비 새는 낡은 오두막 밑에서 시나 논하고 부(賦)나 읊조리며" },
+          { hanja: "却把短布抱妻孥", hangul: "각파단포포처노", trans: "도리어 짧은 삼베옷 걸친 채 처자식을 끌어안고 있구나." },
+          { hanja: "時時壯憤掩不得", hangul: "시시장분엄불득", trans: "때때로 가슴속 치미는 장렬한 분개를 가눌 길 없어" },
+          { hanja: "拔劒斫地空長吁", hangul: "발검작지공장우", trans: "보검을 뽑아 허공과 땅을 내리치며 헛되이 길게 탄식하노라." },
+          { hanja: "何時乘風破巨浪", hangul: "하시승풍파거랑", trans: "어느 때나 거센 바람을 타고 큰 물결을 헤쳐 나아가" },
+          { hanja: "坐令四海如唐虞", hangul: "좌령사해여당우", trans: "온 천하를 단번에 요순(堯舜)의 태평성대로 만들 것인가!" },
+          { hanja: "君不見凌煙閣上圖形容", hangul: "군불견능연각상도형용", trans: "그대는 보지 못하였는가, 능연각(凌煙閣) 벽상에 그려진 공신들의 모습을!" },
+          { hanja: "半是書生半武夫", hangul: "반시서생반무부", trans: "그 절반은 글 읽던 서생이요, 그 절반은 무부(武夫)들이었다네!" }
+        ],
+        notes: [
+          { key: "六鼇(육오)", desc: "열자(列子)에 나오는 신화. 발해 가운데 봉래 등 다섯 신산을 떠받치고 있는 여섯 마리의 거대한 자라." },
+          { key: "九烏(구오)", desc: "요임금 때 열 개의 해가 동시에 떠올라 초목이 타죽자 후예(后羿)가 아홉 개를 쏘아 떨어뜨렸다는 신화." },
+          { key: "鍊石(연석)", desc: "여와씨(女媧氏)가 오색 돌을 제련하여 무너진 하늘의 구멍을 기웠다는 고사." },
+          { key: "馮異(풍이)·孔明(공명)", desc: "한나라 광무제를 도와 농서를 평정한 대장군 풍이와 촉한의 제갈량." },
+          { key: "唐虞(당우)", desc: "도당씨(요임금)와 유우씨(순임금)의 태평성대." },
+          { key: "凌煙閣(능연각)", desc: "당 태종이 나라를 세우는 데 큰 공을 세운 24명의 개국공신 초상화를 걸어두었던 누각." }
+        ],
+        commentary: "포의(布衣)의 곤궁함 속에서도 천하를 경영하겠다는 웅대한 포부와 시대를 잘못 만난 불우한 지식인의 비분강개(悲憤慷慨)를 폭포수 같은 기백으로 쏟아낸 명고시입니다."
+      },
+      {
+        id: "poem-6",
+        titleSound: "경인중구",
+        author: "김신윤(金莘尹)",
+        authorHanja: "金莘尹",
+        authorDesc: "고려 중기 의종~명종 때의 문신. 1170년 무신정변(庚寅之亂)의 참상을 직접 목격함.",
+        title: "경인년 중양절 (경인중구)",
+        titleHanja: "庚寅重九",
+        form: "오언절구 (五言絶句)",
+        page: "Page 13 (p.5)",
+        lines: [
+          { hanja: "輦下干戈起", hangul: "연하간과기", trans: "임금의 수레 머무는 대궐 아래 전쟁의 칼날이 일어나" },
+          { hanja: "殺人如亂麻", hangul: "살인여란마", trans: "사람 죽이기를 헝클어진 삼 줄기 베듯 하는구나." },
+          { hanja: "良辰不可負", hangul: "량진불가부", trans: "그러나 일 년에 한 번 오는 좋은 명절을 저버릴 수 없어" },
+          { hanja: "白酒泛黃花", hangul: "백주범황화", trans: "맑은 술잔 위에 노란 국화꽃을 띄워 마시노라." }
+        ],
+        notes: [
+          { key: "庚寅(경인)", desc: "1170년(고려 의종 24년) 경인란(무신정변). 정중부, 이의방 등이 문관들을 대대적으로 학살한 사건." },
+          { key: "重九(중구)", desc: "음력 9월 9일 중양절. 국화주를 마시며 높은 곳에 올라 액을 막는 풍습이 있는 명절." },
+          { key: "輦下(연하)", desc: "임금이 탄 가마 아래, 곧 수도 개경 궁궐을 가리킴." },
+          { key: "亂麻(난마)", desc: "어지럽게 엉클어진 삼 줄기." }
+        ],
+        commentary: "무신정변의 피비린내 나는 학살의 공포 속에서, 생사의 갈림길에 선 선비가 역설적으로 중양절 국화주를 기울이며 비극적 체념과 삶의 비장미를 읊은 절창입니다."
+      },
+      {
+        id: "poem-7",
+        titleSound: "과연복사",
+        author: "임규(任奎)",
+        authorHanja: "任奎",
+        authorDesc: "고려 중기 문신. 명종 때 활동.",
+        title: "연복사를 지나며",
+        titleHanja: "過延福寺",
+        form: "칠언율시 (七言律詩)",
+        page: "Page 13 (p.5)",
+        lines: [
+          { hanja: "誰勸君臣入酒鄕", hangul: "수권군신입주향", trans: "뉘라서 임금과 신하더러 술의 고향에 빠져들라 권했던가?" },
+          { hanja: "不知禍自在蕭墻", hangul: "불지화자재소장", trans: "재앙이 바로 집안 담장 안에서 일어날 줄은 알지 못했네." },
+          { hanja: "酣歌不闋瓊樓上", hangul: "감가불궐경루상", trans: "아름다운 옥루 위에서는 흥겨운 노랫소리 그치지 않더니" },
+          { hanja: "腥血交流輦道傍", hangul: "성혈교류연도방", trans: "어느새 비린 피가 임금의 행차 길가에 강물처럼 흘렀구나." },
+          { hanja: "煬帝汴河秋冷落", hangul: "양제변하추랭락", trans: "수양제가 유람하던 변하의 가을은 쓸쓸하게 식어버렸고" },
+          { hanja: "明皇蜀道雨凄凉", hangul: "명황촉도우처량", trans: "당 현종이 피난 가던 촉도의 빗줄기는 처량하기만 했거늘," },
+          { hanja: "當時此恨無人識", hangul: "당시차한무인식", trans: "그 당시 이 한스러운 비극을 아는 사람이 아무도 없었으니" },
+          { hanja: "滿目溪山泪數行", hangul: "만목계산루수행", trans: "눈앞에 가득한 시내와 산을 보며 몇 줄기 눈물만 떨구노라." }
+        ],
+        notes: [
+          { key: "延福寺(연복사)", desc: "개경에 있던 대찰. 의종이 자주 행차하여 연회를 베풀던 곳." },
+          { key: "蕭墻(소장)", desc: "궁궐의 안쪽 담장. '소장지화(蕭墻之禍)'는 내부에서 일어나는 화란(무신란)을 이름." },
+          { key: "煬帝汴河(양제변하)", desc: "수양제가 대운하(변하)를 파고 용주를 타며 향락에 빠졌다가 나라를 망친 고사." },
+          { key: "明皇蜀道(명황촉도)", desc: "당 현종이 안사의 난으로 양귀비를 잃고 촉 땅으로 피난 가며 처량한 빗소리를 들었던 고사." }
+        ],
+        commentary: "의종의 향락과 실정(연복사에서의 주색)이 결국 무신정변의 참극과 왕조의 쇠락으로 이어진 역사의 교훈을 수양제와 당 현종에 빗대어 엄중하게 질타하고 비통해한 영사시(詠史詩)입니다."
+      },
+      {
+        id: "poem-8",
+        titleSound: "증기",
+        author: "정습명(鄭襲明)",
+        authorHanja: "鄭襲明",
+        authorDesc: "?~1151, 고려 인종·의종 때의 충신. 시호는 문충(文忠). 인종의 유조를 받아 의종을 훈계하다 참소를 입고 자결함.",
+        title: "기생에게 주다",
+        titleHanja: "贈妓",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 14 (p.6)",
+        lines: [
+          { hanja: "百花叢裏淡丰容", hangul: "백화총리담봉용", trans: "온갖 화려한 꽃송이 속에서도 담박하고 빼어난 자태여," },
+          { hanja: "忽被狂風减却紅", hangul: "홀피광풍감각홍", trans: "문득 불어닥친 사나운 바람에 붉은 뺨의 고운 빛 잃었구나." },
+          { hanja: "獺髓未能醫玉頰", hangul: "달수미능의옥협", trans: "수달의 골수약으로도 옥 같은 뺨의 상처를 고치지 못하니" },
+          { hanja: "五陵公子恨無窮", hangul: "오릉공자한무궁", trans: "서울의 귀공자들 안타까워 가없는 한숨만 쉬는구나." }
+        ],
+        notes: [
+          { key: "丰容(봉용)", desc: "풍채와 용모가 뛰어나고 아름다움." },
+          { key: "獺髓(달수)", desc: "수달의 뼈골수. 삼국지 오나라 손화(孫和)의 총희 등부인이 얼굴에 상처를 입었을 때 수달의 골수로 흉터를 지웠다는 고사." },
+          { key: "五陵公子(오릉공자)", desc: "한나라 때 장안의 다섯 황제 능 주변에 살던 부유하고 권세 있는 귀공자들." }
+        ],
+        commentary: "얼굴에 상처를 입어 미모를 다친 기녀를 위로하는 시로, 표면적으로는 여인의 아픔을 달래면서 이면에는 순수하고 재능 있는 선비가 세상의 풍파(광풍)에 시련을 겪는 처지를 빗댄 우의(寓意)를 담고 있습니다."
+      },
+      {
+        id: "poem-9",
+        titleSound: "자사취수선생진, 제운",
+        author: "안순지(安淳之)",
+        authorHanja: "安淳之",
+        authorDesc: "고려 시대 문인. 호는 취수선생(醉睡先生).",
+        title: "스스로 취해 잠든 모습을 그리고 운을 달다",
+        titleHanja: "自寫醉睡先生眞, 題韻",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 14 (p.6)",
+        lines: [
+          { hanja: "有道不行不如醉", hangul: "유도불행불여취", trans: "올바른 도가 행해지지 못할 바엔 차라리 취하는 것만 못하고" },
+          { hanja: "有口不言不如睡", hangul: "유구불언불여수", trans: "입이 있어도 바른말을 못 할 바엔 차라리 잠자는 것만 못하리." },
+          { hanja: "先生醉睡杏下陰", hangul: "선생취수살하음", trans: "선생은 살구나무 그늘 아래 취하여 곤히 잠들었으니" },
+          { hanja: "世上無人知此意", hangul: "세상무인지차의", trans: "세상 사람 중 그 누구도 이 깊은 뜻을 알지 못하리라." }
+        ],
+        notes: [
+          { key: "眞(진)", desc: "진영(眞影), 즉 자화상이나 초상화를 뜻함." },
+          { key: "不如(불여)", desc: "~하는 것만 못하다, 차라리 ~하는 편이 낫다." },
+          { key: "杏下陰(행하음)", desc: "살구나무 아래 드리운 시원한 그늘." }
+        ],
+        commentary: "도가 땅에 떨어지고 언로가 막힌 혼탁한 난세에 맞서, 거짓으로 타협하기보다는 '취함과 잠듦'으로 세상에 저항하며 고결한 뜻을 지키려 한 자화상 찬시(贊詩)입니다."
+      },
+      {
+        id: "poem-10",
+        titleSound: "기우인",
+        author: "임춘(林椿)",
+        authorHanja: "林椿",
+        authorDesc: "?~?, 고려 중기 강좌칠현(江左七賢)의 필두. 자는 기지(耆之), 호는 서하(西河). 무신정변 때 가문이 화를 입고 유랑 생활을 함.",
+        title: "벗에게 부치다 (기우인)",
+        titleHanja: "寄友人",
+        form: "칠언율시 (七言律詩)",
+        page: "Page 15 (p.7)",
+        lines: [
+          { hanja: "十年流落半生涯", hangul: "십년유락반생애", trans: "십 년 동안 정처 없이 떠돌며 반평생을 보냈으니" },
+          { hanja: "觸處那堪感物華", hangul: "촉처나감감물화", trans: "발길 닿는 곳마다 어찌 아름다운 풍경에 감회를 견디리오." },
+          { hanja: "秋月春風詩準備", hangul: "추월춘풍시준비", trans: "가을달과 봄바람은 오직 시를 짓기 위해 준비된 것이요," },
+          { hanja: "旅愁羈思酒消磨", hangul: "여수기사주소마", trans: "나그네의 시름과 객지의 서글픈 생각은 술로 삭여버리네." },
+          { hanja: "縱無功業傳千古", hangul: "종무공업전천고", trans: "비록 천고에 전해질 위대한 공업(功業)은 세우지 못했으나" },
+          { hanja: "祇有文章自一家", hangul: "기유문장자일가", trans: "오직 내 문장만큼은 스스로 당당히 한 일가(一家)를 이루었노라." },
+          { hanja: "盛世偸閑殊不惡", hangul: "성세투한수불악", trans: "태평한 세상에 한가로움을 훔쳐 사는 것도 퍽 나쁘지 않으니" },
+          { hanja: "從敎身世轉蹉跎", hangul: "종교신세전차타", trans: "내 신세가 갈수록 어그러지고 곤궁해진들 그대로 내버려 두리라." }
+        ],
+        notes: [
+          { key: "流落(유락)", desc: "정처 없이 이리저리 떠돌아다님." },
+          { key: "物華(물화)", desc: "자연의 아름다운 풍물과 경치." },
+          { key: "自一家(자일가)", desc: "남을 모방하지 않고 독창적인 자신만의 예술적 경지(대가의 경지)를 이룸." },
+          { key: "蹉跎(차타)", desc: "일이 뜻대로 되지 않고 기회를 놓쳐 신세를 망침." }
+        ],
+        commentary: "무신란으로 집안이 몰락하여 유랑하면서도 문장가로서의 드높은 자부심을 잃지 않고, 불우한 운명을 시와 술로 달래며 한 일가를 이룬 지식인의 결기 어린 자화상을 보여줍니다."
+      },
+      {
+        id: "poem-11",
+        titleSound: "다점주수",
+        author: "임춘(林椿)",
+        authorHanja: "林椿",
+        authorDesc: "고려 강좌칠현의 한 사람. 호 서하(西河).",
+        title: "찻집에서 낮잠을 자며 (다점주수)",
+        titleHanja: "茶店晝睡",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 15 (p.7)",
+        lines: [
+          { hanja: "頹然卧榻便忘形", hangul: "퇴연와탑변망형", trans: "찻집 평상에 털썩 누우니 곧장 내 몸의 형체마저 잊고" },
+          { hanja: "午枕風來睡自醒", hangul: "오침풍래수자성", trans: "낮잠 든 베개에 솔솔 바람 불어오자 저절로 잠이 깨네." },
+          { hanja: "夢裏此身無處着", hangul: "몽리차신무처착", trans: "꿈속에서도 이 몸은 정처 없이 발 둘 곳이 없었으니" },
+          { hanja: "乾坤都是一長亭", hangul: "건곤도시일장정", trans: "아, 하늘과 땅 온 우주가 그저 나그네 머무는 한 채의 주막집이로다." }
+        ],
+        notes: [
+          { key: "頹然(퇴연)", desc: "맥없이 털썩 쓰러지거나 편안히 눕는 모습." },
+          { key: "忘形(망형)", desc: "자신의 육체와 외모에 얽매이지 않고 정신의 자유를 얻음." },
+          { key: "長亭(장정)", desc: "옛날 길가 10리마다 두어 나그네가 쉬어가거나 이별하던 정자(주막)." }
+        ],
+        commentary: "길가의 작은 찻집에서 잠시 낮잠을 자고 깬 순간, 정처 없는 자신의 부평초 같은 인생과 이 우주 전체가 잠시 머물다 떠나는 여관에 불과하다는 실존적 깨달음을 간결하고도 깊이 있게 표현했습니다."
+      },
+      {
+        id: "poem-12",
+        titleSound: "죽취일이죽",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "1152~1220, 고려 명종~고종 때의 대문호. 자는 미수(眉叟), 호는 쌍명재(雙明齋). 《파한집(破閑集)》의 저자.",
+        title: "죽취일에 대나무를 옮겨 심다 (죽취일이죽)",
+        titleHanja: "竹醉日移竹",
+        form: "오언배율 16구 (五言排律)",
+        page: "Page 16 (p.8)",
+        lines: [
+          { hanja: "古今一丘貉", hangul: "고금일구학", trans: "예나 지금이나 세상 사람들은 한 언덕의 오소리 같아 같잖고" },
+          { hanja: "天地眞籧廬", hangul: "천지진거려", trans: "하늘과 땅은 참으로 덧없는 나그네의 여관일 뿐이네." },
+          { hanja: "此君獨酩酊", hangul: "차군독명정", trans: "오직 대나무 이 그대만이 홀로 술에 취하여" },
+          { hanja: "兀兀忘所如", hangul: "올올망소여", trans: "우뚝 서서 자신이 어디로 가는지조차 잊었구나." },
+          { hanja: "江山雖有異", hangul: "강산수유이", trans: "비록 옮겨온 강산의 터전은 이전과 다르다 하나" },
+          { hanja: "風景本無殊", hangul: "풍경본무수", trans: "마주하는 바람과 볕은 본래 다를 바 없으니," },
+          { hanja: "不用更醒悟", hangul: "불용갱성오", trans: "다시는 애써 술에서 깨어날 필요가 없나니" },
+          { hanja: "操戈便逐儒", hangul: "조과편축유", trans: "무부들이 창을 잡고 걸핏하면 선비들을 내쫓기 때문이라네." },
+          { hanja: "司馬甞客遊", hangul: "사마상객유", trans: "사마천도 일찍이 천하를 나그네처럼 유람하였고" },
+          { hanja: "夫子亦旅寓", hangul: "부자역려우", trans: "공자(孔子)께서도 여러 나라를 떠돌며 묵으셨네." },
+          { hanja: "新亭相對泣", hangul: "신정상대읍", trans: "신정(新亭)에 모여 서로 마주 보고 눈물 흘렸던" },
+          { hanja: "數子眞兒女", hangul: "수자진아녀", trans: "그 몇몇 위진(魏晉)의 명사들이야말로 참으로 아녀자 같았지." },
+          { hanja: "此君恥匏繫", hangul: "차군치포계", trans: "대나무 그대는 박처럼 한곳에 매여 있기를 부끄러워하여" },
+          { hanja: "所適天不阻", hangul: "소적천불조", trans: "마음 가는 곳마다 하늘도 가로막지 못하는구나." },
+          { hanja: "何必登樓吟", hangul: "하필등루음", trans: "어찌 왕찬(王粲)처럼 굳이 등루부(登樓賦)를 읊으며" },
+          { hanja: "信美非吾土", hangul: "신미비오토", trans: "'참으로 아름다우나 내 고향 땅이 아니로다' 탄식할 것인가!" }
+        ],
+        notes: [
+          { key: "竹醉日(죽취일)", desc: "음력 5월 13일. 대나무가 술에 취해 어지러워 이식하기 가장 좋은 날이라 하여 대를 옮겨 심는 날." },
+          { key: "一丘貉(일구학)", desc: "한 언덕의 담비와 오소리. 모두 한통속으로 나쁜 무리를 뜻함." },
+          { key: "籧廬(거려)", desc: "나그네가 잠시 머물다 가는 여관. 인생의 덧없음을 비유." },
+          { key: "此君(차군)", desc: "대나무의 별칭. 왕휘지가 '하루라도 이 군(대나무) 없이 살 수 없다'고 한 데서 유래." },
+          { key: "操戈便逐儒(조과편축유)", desc: "무신정변 이후 무신들이 권력을 쥐고 문신(선비)들을 탄압하고 축출하던 세태를 직설적으로 비판한 구절." },
+          { key: "新亭對泣(신정대읍)", desc: "동진(東晉) 때 강남으로 피난 온 명사들이 신정에 모여 중원의 고향 땅을 그리워하며 눈물 흘리던 고사." },
+          { key: "匏繫(포계)", desc: "논어(論語)의 말로, 박처럼 한곳에 가만히 매달려 쓰이지 못하는 처지." },
+          { key: "信美非吾土", desc: "후한 말 왕찬이 유표에게 의탁했을 때 지은 〈등루부〉의 구절." }
+        ],
+        commentary: "죽취일에 대나무를 옮겨 심는 일상적 행위를 통해, 무신정권의 폭압 속에 쫓겨 다니는 지식인의 유랑과 울분을 투영하고, 대나무의 꿋꿋한 초월적 절개를 찬미한 장편 배율 명작입니다."
+      },
+      {
+        id: "poem-13",
+        titleSound: "산거",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재(雙明齋).",
+        title: "산에 살며 (산거)",
+        titleHanja: "山居",
+        form: "오언절구 (五言絶句)",
+        page: "Page 17 (p.9)",
+        lines: [
+          { hanja: "春去花猶在", hangul: "춘거화유재", trans: "봄은 이미 떠나갔건만 꽃은 여전히 피어 있고" },
+          { hanja: "天晴谷自陰", hangul: "천청곡자음", trans: "하늘은 활짝 개었는데 골짜기는 절로 그늘지네." },
+          { hanja: "杜鵑啼白晝", hangul: "두견제백주", trans: "대낮인데도 두견새가 구슬프게 우니" },
+          { hanja: "始覺卜居深", hangul: "시각복거심", trans: "비로소 내가 터 잡고 사는 곳이 깊은 산중임을 깨닫노라." }
+        ],
+        notes: [
+          { key: "卜居(복거)", desc: "살 만한 곳을 점쳐 터전을 잡음. 은거 생활을 시작함." },
+          { key: "杜鵑(두견)", desc: "소쩍새, 접동새. 주로 밤이나 깊은 산골에서 슬피 우는 새." }
+        ],
+        commentary: "시각적 역설(봄이 가도 남은 꽃, 맑은 날의 그늘)과 청각적 충격(대낮의 두견새 울음소리)을 통하여 깊고 그윽한 산골의 고적함과 탈속의 은거 정취를 압축적으로 묘사했습니다."
+      },
+      {
+        id: "poem-14",
+        titleSound: "서천수승원벽",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재(雙明齋).",
+        title: "천수사 승원의 벽에 쓰다",
+        titleHanja: "書天壽僧院壁",
+        form: "오언절구 (五言絶句)",
+        page: "Page 17 (p.9)",
+        lines: [
+          { hanja: "待客客未到", hangul: "대객객미도", trans: "손님을 기다려도 손님은 찾아오지 않고" },
+          { hanja: "尋僧僧亦無", hangul: "심승승역무", trans: "스님을 찾아보아도 스님 또한 자리에 없구나." },
+          { hanja: "唯餘林外鳥", hangul: "유여임외조", trans: "오직 숲 밖에서 우는 새 한 마리만 남아 있어" },
+          { hanja: "欵曲勸提壺", hangul: "관곡권제호", trans: "다정하게도 나더러 술병을 들라고 권하는구나." }
+        ],
+        notes: [
+          { key: "欵曲(관곡)", desc: "정성이 지극하고 다정함." },
+          { key: "提壺(제호)", desc: "술병을 든다는 뜻이자, '제호조(提壺鳥)'라는 새의 울음소리가 마치 '술병을 들라(提壺)'고 재촉하는 소리와 같다는 중의적 표현." }
+        ],
+        commentary: "절을 찾아왔으나 손님도 스님도 없는 텅 빈 적막함 속에서, 울어대는 산새 소리를 마치 술 한잔하라고 권하는 벗으로 받아들이는 시인의 유쾌하고 낭만적인 선취(禪趣)가 돋보입니다."
+      },
+      {
+        id: "poem-15",
+        titleSound: "평사낙안",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 1: 평사낙안",
+        titleHanja: "平沙落雁",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 18 (p.10)",
+        lines: [
+          { hanja: "水遠天長日脚斜", hangul: "수원천장일각사", trans: "물은 아득하고 하늘은 끝없이 넓은데 햇살은 비스듬히 기울고" },
+          { hanja: "隨陽征雁下汀沙", hangul: "수양정안하정사", trans: "따스한 볕 찾아가는 기러기 떼는 모래톱으로 내려앉네." },
+          { hanja: "行行點破秋空碧", hangul: "행행점파추공벽", trans: "줄지어 날아가며 푸른 가을 하늘을 점점이 깨뜨리더니" },
+          { hanja: "低拂黃蘆動雪花", hangul: "저불황로동설화", trans: "누런 갈대숲을 낮게 스쳐 하얀 갈대꽃 눈송이처럼 흩날리네." }
+        ],
+        notes: [
+          { key: "平沙落雁", desc: "소상팔경의 하나. 넓고 평평한 모래톱에 날아앉는 기러기 떼의 정경." },
+          { key: "日脚(일각)", desc: "구름 사이로 비스듬히 내리비치는 햇살 줄기." },
+          { key: "隨陽(수양)", desc: "따뜻한 양기를 좇아 남쪽으로 날아가는 기러기의 생태." },
+          { key: "雪花(설화)", desc: "눈꽃. 여기서는 바람에 날리는 하얀 갈대꽃(蘆花)을 비유." }
+        ],
+        commentary: "광활한 수평선과 기러기의 군무, 푸른 하늘과 흰 갈대꽃의 선명한 색채 대비를 통해 맑고 쓸쓸한 가을 강의 정경을 한 폭의 수묵화처럼 포착했습니다."
+      },
+      {
+        id: "poem-16",
+        titleSound: "원포귀범",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 2: 원포귀범",
+        titleHanja: "遠浦歸帆",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 18 (p.10)",
+        lines: [
+          { hanja: "渡頭煙樹碧童童", hangul: "도두연수벽동동", trans: "나루터 안개 낀 숲은 푸르고 둥글게 우거졌는데" },
+          { hanja: "十幅編蒲萬里風", hangul: "십폭편포만리풍", trans: "열 폭 부들로 엮은 돛단배는 만리 바람을 안고 달려오네." },
+          { hanja: "玉膾銀蓴秋正美", hangul: "옥회은순추정미", trans: "옥 같은 물고기회와 은빛 순챗국은 가을철에 딱 제맛이니" },
+          { hanja: "故牽歸興向江東", hangul: "고견귀흥향강동", trans: "일부러 고향 돌아갈 흥취를 끌어안고 강동을 향해 나아가네." }
+        ],
+        notes: [
+          { key: "遠浦歸帆", desc: "소상팔경의 하나. 먼 포구로 돛을 달고 돌아오는 배의 정경." },
+          { key: "童童(동동)", desc: "나무가 무성하고 둥글게 자란 모양." },
+          { key: "編蒲(편포)", desc: "부들 풀을 엮어 만든 돛." },
+          { key: "蓴鱸之思(순로지사)", desc: "진(晉)나라 장한(張翰)이 가을바람이 불자 고향 강동의 농어회와 순챗국이 생각나 벼슬을 버리고 고향으로 돌아갔다는 고사." }
+        ],
+        commentary: "순채와 농어회의 고사(蓴鱸之思)를 인용하여, 벼슬길의 번잡함을 벗어나 자연의 품과 그리운 고향으로 돌아가는 뱃길의 경쾌하고 상쾌한 흥취를 노래했습니다."
+      },
+      {
+        id: "poem-17",
+        titleSound: "강천모설",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 3: 강천모설",
+        titleHanja: "江天暮雪",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 18 (p.10)",
+        lines: [
+          { hanja: "雪意嬌多着水遲", hangul: "설의교다착수지", trans: "눈송이는 교태를 부리듯 하늘거리며 물 위에 늦게야 내려앉고" },
+          { hanja: "千林遠影已離離", hangul: "천림원영이리리", trans: "멀리 보이는 무수한 숲 그림자는 이미 희끗희끗 흩어지네." },
+          { hanja: "蓑翁未識天將暮", hangul: "사옹미식천장모", trans: "도롱이 입은 늙은 어부는 날이 저무는 줄도 미처 모르고" },
+          { hanja: "誤道東風柳絮時", hangul: "오도동풍유서시", trans: "봄바람에 버들솜(버들꽃) 날리는 봄날인가 잘못 말하는구나." }
+        ],
+        notes: [
+          { key: "江天暮雪", desc: "소상팔경의 하나. 저물녘 강과 하늘에 소리 없이 내리는 눈 풍경." },
+          { key: "離離(리리)", desc: "드문드문 흩어져 있거나 분명하지 않은 모습." },
+          { key: "蓑翁(사옹)", desc: "짚이나 풀로 엮은 도롱이(비옷)를 입은 늙은 낚시꾼." },
+          { key: "柳絮(유서)", desc: "봄철 바람에 날리는 버들강아지의 하얀 솜털. 흩날리는 눈송이를 비유함." }
+        ],
+        commentary: "차갑고 황량해야 할 저녁 눈 풍경을 봄날의 버들솜에 비유한 노어부의 착각을 통해, 혹한의 겨울 강을 환상적이고도 따스한 시적 서정으로 승화시켰습니다."
+      },
+      {
+        id: "poem-18",
+        titleSound: "산시청람",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 4: 산시청람",
+        titleHanja: "山市晴嵐",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 18 (p.10)",
+        lines: [
+          { hanja: "朝日微昇疊嶂寒", hangul: "조일미승첩장한", trans: "아침 해가 희미하게 솟아오르자 첩첩한 산봉우리는 차갑고" },
+          { hanja: "浮嵐細細引輕紈", hangul: "부람세세인경환", trans: "피어오르는 산 안개는 가늘게 하늘거리는 흰 비단을 드리운 듯하네." },
+          { hanja: "林間出沒幾多屋", hangul: "임간출몰기다옥", trans: "숲 사이로 안개 속에 숨었다 드러나는 마을 집들은 몇몇 채인가" },
+          { hanja: "天際有無何處山", hangul: "천제유무하처산", trans: "아득한 하늘가에 있는 듯 없는 듯 아른거리는 저곳은 어느 산인가." }
+        ],
+        notes: [
+          { key: "山市晴嵐", desc: "소상팔경의 하나. 산골 장터 마을에 아침 햇살과 맑은 산 안개가 피어오르는 정경." },
+          { key: "疊嶂(첩장)", desc: "병풍처럼 겹겹이 둘러쳐진 험준한 산봉우리들." },
+          { key: "浮嵐(부람)", desc: "산에 어리어 떠도는 푸르스름하고 아스라한 기운이나 안개." },
+          { key: "輕紈(경환)", desc: "가볍고 부드러운 흰 명주 비단." }
+        ],
+        commentary: "아침 햇살에 안개가 서서히 걷히며 마을 집들과 먼 산들이 나타났다 사라지는 몽환적인 산수(山水)의 조화와 원근감을 절묘한 묘사로 담아냈습니다."
+      },
+      {
+        id: "poem-19",
+        titleSound: "동정추월",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 5: 동정추월",
+        titleHanja: "洞庭秋月",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 19 (p.11)",
+        lines: [
+          { hanja: "雲端瀲瀲黃金餠", hangul: "운단렴렴황금병", trans: "구름 끝에서 넘실넘실 반짝이는 둥근 황금 떡 같은 달이여" },
+          { hanja: "霜後溶溶碧玉濤", hangul: "상후용용벽옥도", trans: "서리 내린 뒤 끝없이 일렁이는 파도는 푸른 벽옥 같구나." },
+          { hanja: "欲識夜深風露重", hangul: "욕식야심풍로중", trans: "밤이 깊어 바람과 찬 이슬이 얼마나 무거운지 알고자 하거든" },
+          { hanja: "倚船漁父一肩高", hangul: "의선어부일견고", trans: "배전에 기댄 어부의 한쪽 어깨가 움츠려 솟아 있는 것을 보아라." }
+        ],
+        notes: [
+          { key: "洞庭秋月", desc: "소상팔경의 하나. 드넓은 동정호 위에 비치는 밝은 가을 달밤의 풍경." },
+          { key: "黃金餠(황금병)", desc: "황금빛 둥근 떡. 휘영청 밝은 보름달을 참신하고 해학적으로 비유함." },
+          { key: "溶溶(용용)", desc: "물이 가득하여 넘실대며 넓게 흐르는 모양." },
+          { key: "一肩高(일견고)", desc: "추위 때문에 한쪽 어깨를 잔뜩 웅크리고 있는 모습." }
+        ],
+        commentary: "가을 달을 '황금 떡'에 비유한 파격적인 상상력과, 밤의 차가운 기운을 추위에 한쪽 어깨를 웅크린 어부의 동작 하나로 포착해 낸 묘사의 극치를 보여줍니다."
+      },
+      {
+        id: "poem-20",
+        titleSound: "소상야우",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 6: 소상야우",
+        titleHanja: "瀟湘夜雨",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 19 (p.11)",
+        lines: [
+          { hanja: "一帶滄波兩岸秋", hangul: "일대창파양안추", trans: "한 줄기 푸른 물결 양쪽 언덕엔 가을빛이 완연한데" },
+          { hanja: "風吹細雨洒歸舟", hangul: "풍취세우쇄귀주", trans: "바람은 보슬비를 몰아와 돌아가는 나룻배를 적시네." },
+          { hanja: "夜來泊近江邊竹", hangul: "야래박근강변죽", trans: "어젯밤 강가의 대나무 숲 가까이에 배를 대었더니" },
+          { hanja: "葉葉寒聲揔是愁", hangul: "엽엽한성총시수", trans: "댓잎마다 서걱대는 차가운 빗소리가 온통 나그네의 시름이로구나." }
+        ],
+        notes: [
+          { key: "瀟湘夜雨", desc: "소상팔경의 하나. 소상강에 밤비가 내리는 쓸쓸한 정경." },
+          { key: "歸舟(귀주)", desc: "포구로 돌아가는 배." },
+          { key: "揔是愁(총시수)", desc: "모두가 시름이고 슬픔이다 (揔은 總과 통함)." }
+        ],
+        commentary: "소상강의 전설적인 대나무 숲(순임금의 두 비 아황과 여영의 눈물이 어린 반죽)을 배경으로, 밤새 댓잎을 때리는 빗소리를 통해 인간의 근원적인 고독과 비애를 형상화했습니다."
+      },
+      {
+        id: "poem-21",
+        titleSound: "연사만종",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 7: 연사만종",
+        titleHanja: "煙寺晚鍾",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 19 (p.11)",
+        lines: [
+          { hanja: "千回石徑白雲封", hangul: "천회석경백운봉", trans: "천 굽이 바윗길은 흰 구름에 굳게 닫혀 가려져 있고" },
+          { hanja: "巖樹蒼蒼晚色濃", hangul: "암수창창만색농", trans: "바위 틈 우거진 나무는 울창하여 땅거미 저녁빛이 짙어가네." },
+          { hanja: "知有蓮坊藏翠壁", hangul: "지유련방장취벽", trans: "푸른 절벽 깊숙한 곳에 절간이 숨어 있음을 어찌 알았으랴" },
+          { hanja: "好風吹落一聲鍾", hangul: "호풍취락일성종", trans: "기분 좋은 산바람이 맑은 종소리 한 가닥을 실어 날려주네." }
+        ],
+        notes: [
+          { key: "煙寺晚鍾", desc: "소상팔경의 하나. 저녁 안개에 싸인 산사에서 울려 퍼지는 종소리." },
+          { key: "蓮坊(연방)", desc: "절, 사찰, 승원(사찰을 미화한 표현)." },
+          { key: "翠壁(취벽)", desc: "이끼가 끼거나 푸른 나무가 덮인 푸른빛 절벽." }
+        ],
+        commentary: "구름과 짙은 저녁 어둠 속에 꼭꼭 숨어 보이지 않던 산사의 존재가, 한 줄기 청아한 저녁 종소리를 통해 홀연히 드러나는 청각적 감동과 그윽한 선경(仙境)을 노래했습니다."
+      },
+      {
+        id: "poem-22",
+        titleSound: "어촌낙조",
+        author: "이인로(李仁老)",
+        authorHanja: "李仁老",
+        authorDesc: "고려 대문호. 호 쌍명재.",
+        title: "소상팔경 8: 어촌낙조",
+        titleHanja: "漁村落照",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 19 (p.11)",
+        lines: [
+          { hanja: "草屋半依垂柳岸", hangul: "초옥반의수류안", trans: "초가집은 늘어진 수양버들 언덕에 비스듬히 기대어 있고" },
+          { hanja: "板橋橫斷白蘋汀", hangul: "판교횡단백빈정", trans: "널빤지 다리는 하얀 마름풀 핀 물가를 가로질러 놓여 있네." },
+          { hanja: "日斜愈覺江山勝", hangul: "일사유각강산승", trans: "해가 기울수록 강산의 빼어난 풍경은 더욱 그윽해지니" },
+          { hanja: "萬頃紅浮數點靑", hangul: "만경홍부수점청", trans: "만 이랑 붉은 노을빛 물결 위에 몇 점 푸른 산봉우리 떠 있구나." }
+        ],
+        notes: [
+          { key: "漁村落照", desc: "소상팔경의 하나. 저녁노을이 붉게 물드는 어촌 마을의 석양 풍경." },
+          { key: "白蘋(백빈)", desc: "물 위에 떠서 자라는 흰 꽃이 피는 마름풀이나 개구리밥." },
+          { key: "萬頃紅(만경홍)", desc: "만 이랑이나 되는 광활한 물결 전체가 붉은 저녁노을빛으로 물든 장관." }
+        ],
+        commentary: "소상팔경 연작의 마지막 수로, 만 이랑 붉게 물든 호수(紅)와 그 위에 점점이 떠 있는 푸른 산(靑)의 화려한 색채 대조를 통해 황혼의 평화롭고 장엄한 미를 완성했습니다."
+      },
+      {
+        id: "poem-23",
+        titleSound: "북산잡제사수지일、삼",
+        author: "이규보(李奎報)",
+        authorHanja: "李奎報",
+        authorDesc: "1168~1241, 고려 후기 최고의 문호. 호 백운거사(白雲居士). 호방하고 거침없는 천재적 필치로 방대한 시문을 남김.",
+        title: "북산잡제 4수 중 제1수, 제3수",
+        titleHanja: "北山雜題四首之一、三",
+        form: "오언절구 2수 (五言絶句)",
+        page: "Page 20 (p.12)",
+        subPoems: [
+          {
+            subTitle: "제1수 (其一)",
+            lines: [
+              { hanja: "欲試山人心", hangul: "욕시산인심", trans: "산골에 은거하는 도인의 마음을 시험해 보고자" },
+              { hanja: "入門先醉奰", hangul: "입문선취비", trans: "사립문 들어서자마자 술 취한 체 짐짓 큰소리로 성을 냈네." },
+              { hanja: "了不見喜慍", hangul: "료불견희온", trans: "끝내 기뻐하거나 성내는 기색조차 조금도 보이지 않으니" },
+              { hanja: "始覺眞高士", hangul: "시각진고사", trans: "비로소 그가 참된 고결한 선비임을 깨달았노라." }
+            ],
+            subNotes: [
+              { key: "醉奰(취비)", desc: "술에 취해 사납게 화를 내며 고함을 지름." },
+              { key: "喜慍(희온)", desc: "기뻐함과 성냄. 감정의 동요." }
+            ]
+          },
+          {
+            subTitle: "제3수 (其三)",
+            lines: [
+              { hanja: "山花發幽谷", hangul: "산화발유곡", trans: "산꽃이 그윽한 골짜기에 활짝 피어" },
+              { hanja: "欲報山中春", hangul: "욕보산중춘", trans: "산속에도 봄이 왔음을 알리고자 하건만," },
+              { hanja: "何曾管開落", hangul: "하증관개락", trans: "스님은 언제 꽃이 피고 지는 것에 신경이나 썼던가" },
+              { hanja: "多是定中人", hangul: "다시정중인", trans: "대부분 깊은 선정(禪定)에 든 채 미동조차 않는 분이라네." }
+            ],
+            subNotes: [
+              { key: "管(관)", desc: "참견하다, 신경을 쓰다, 마음에 두다." },
+              { key: "定中人(정중인)", desc: "잡념을 끊고 깊은 명상과 삼매(禪定)의 경지에 든 사람(수행승)." }
+            ]
+          }
+        ],
+        commentary: "산속에 사는 은사와 참선하는 수행승의 마음을 유쾌한 짓궂음과 관조로 묘사하여, 외물(外物)의 유혹과 분노, 피고 지는 자연의 변화에도 흔들림 없는 고사의 높은 도경(道境)을 드러냈습니다."
+      },
+      {
+        id: "poem-24",
+        titleSound: "하일",
+        author: "이규보(李奎報)",
+        authorHanja: "李奎報",
+        authorDesc: "고려 대문호. 호 백운거사(白雲居士).",
+        title: "여름날 (하일)",
+        titleHanja: "夏日",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 20 (p.12)",
+        lines: [
+          { hanja: "輕衫小簟卧風欞", hangul: "경삼소점와풍릉", trans: "가벼운 적삼에 작은 대자리 깔고 바람 드는 난간에 누우니" },
+          { hanja: "夢斷啼鶯三兩聲", hangul: "몽단제앵삼량성", trans: "낮잠을 깨운 건 꾀꼬리의 두세 마디 청아한 노랫소리로다." },
+          { hanja: "密葉翳花春後在", hangul: "밀엽예화춘후재", trans: "빽빽한 나뭇잎은 꽃을 가린 채 봄이 지난 뒤에도 남아 있고" },
+          { hanja: "薄雲漏日雨中明", hangul: "박운루일우중명", trans: "엷은 구름 사이로 햇살이 새어 나와 빗속에서도 환하게 비추네." }
+        ],
+        notes: [
+          { key: "小簟(소점)", desc: "시원하게 엮은 작은 대자리." },
+          { key: "風欞(풍릉)", desc: "바람이 잘 통하는 격자창이나 난간 마루." },
+          { key: "翳(예)", desc: "가리다, 그늘지게 덮다." },
+          { key: "漏日(루일)", desc: "구름 틈새로 햇빛이 비쳐 새어 나옴." }
+        ],
+        commentary: "초여름의 한적한 낮잠, 꾀꼬리 소리, 무성한 녹음 속에 숨은 꽃, 그리고 빗줄기 사이로 비치는 햇살(여우비의 정경) 등 여름날의 미세하고 청량한 감각들을 섬세한 필치로 포착했습니다."
+      },
+      {
+        id: "poem-25",
+        titleSound: "자유방대",
+        author: "이규보(李奎報)",
+        authorHanja: "李奎報",
+        authorDesc: "고려 대문호. 호 백운거사(白雲居士).",
+        title: "자유가 대규를 찾아가다 (자유방대)",
+        titleHanja: "子猷訪戴",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 20 (p.12)",
+        lines: [
+          { hanja: "訪人情味雪溪中", hangul: "방인정미설계중", trans: "벗을 찾아가는 참된 정취와 멋은 눈 덮인 시냇물 길에 있으니" },
+          { hanja: "若便相逢一笑空", hangul: "약변상봉일소공", trans: "만약 문득 서로 얼굴을 마주했다면 한바탕 웃음으로 헛되이 끝났으리." },
+          { hanja: "莫道興闌回棹去", hangul: "막도흥란회도거", trans: "흥취가 다하여 배를 돌려 돌아갔다고 탓하여 말하지 말라" },
+          { hanja: "造門直返意無窮", hangul: "조문직반의무궁", trans: "사립문에 이르러 곧바로 돌아선 그 마음이야말로 그윽한 뜻이 끝없음이라." }
+        ],
+        notes: [
+          { key: "子猷(자유)", desc: "동진의 서예가 왕희지의 아들 왕휘지(王徽之)의 자(字)." },
+          { key: "戴(대)", desc: "당대의 고사인 대규(戴逵, 안도)." },
+          { key: "訪戴 고사", desc: "세설신어에 실림. 왕휘지가 눈 내린 밤 벗 대규가 생각나 밤새 배를 타고 그의 집 문 앞까지 갔다가, 문을 두드리지 않고 그냥 돌아섰다. 이유를 묻자 '내가 흥이 일어 갔다가 흥이 다해 돌아왔거늘 어찌 꼭 대규를 만나야 하겠는가(乘興而行 興盡而返)'라고 답한 유명한 풍류의 고사." },
+          { key: "回棹(회도)", desc: "배의 노를 돌려 오던 길로 되돌아감." }
+        ],
+        commentary: "만남이라는 세속적 결과보다 찾아가는 과정 자체의 순수한 예술적 감흥(乘興)을 중시한 위진 명사들의 높은 정신세계를 이규보 특유의 날카로운 통찰과 공감으로 재해석한 작품입니다."
+      },
+      {
+        id: "poem-26",
+        titleSound: "추일서회",
+        author: "진화(陳澕)",
+        authorHanja: "陳澕",
+        authorDesc: "고려 명종~고종 때의 문신·시인. 자는 경회(景晦), 호는 매호(梅湖). 이규보와 함께 당대 한시의 쌍벽을 이루어 '이진(李陳)'이라 병칭됨.",
+        title: "가을날 회포를 쓰다 (추일서회)",
+        titleHanja: "秋日書懷",
+        form: "오언율시 (五言律詩)",
+        page: "Page 21 (p.13)",
+        lines: [
+          { hanja: "富貴也悲秋", hangul: "부귀야비추", trans: "부귀한 사람도 쓸쓸한 가을엔 슬픔에 젖거늘" },
+          { hanja: "孤吟况弊裘", hangul: "고음황폐구", trans: "해진 갖옷 입고 홀로 읊조리는 이 처지야 어떠하랴." },
+          { hanja: "閱多人寵辱", hangul: "열다인총욕", trans: "세상 사람들의 숱한 영총과 치욕을 두루 겪었으니" },
+          { hanja: "問幾日歸休", hangul: "문기일귀휴", trans: "어느 날에나 벼슬을 던지고 고향으로 돌아가 쉴 것인가." },
+          { hanja: "落葉埋金井", hangul: "락엽매금정", trans: "우수수 지는 나뭇잎은 우물 난간을 덮어버리고" },
+          { hanja: "踈砧響石樓", hangul: "소침향석루", trans: "드문드문 들려오는 다듬이 소리는 돌다락을 울리는구나." },
+          { hanja: "聊將倦遊興", hangul: "료장권유흥", trans: "애오라지 벼슬살이 유랑에 지친 이내 마음을 이끌고" },
+          { hanja: "欹枕夢滄洲", hangul: "기침몽창주", trans: "베개를 비스듬히 벤 채 아득한 강호(滄洲)의 꿈을 꾸노라." }
+        ],
+        notes: [
+          { key: "悲秋(비추)", desc: "가을철의 소슬한 풍경을 보고 슬픈 감회에 젖음(송옥의 구변에서 유래)." },
+          { key: "弊裘(폐구)", desc: "다 해어지고 낡은 가죽옷. 소진(蘇秦)이 뜻을 얻지 못하고 초라하게 돌아왔을 때의 행색." },
+          { key: "金井(금정)", desc: "난간을 정연하게 두른 우물(금정오동)." },
+          { key: "踈砧(소침)", desc: "가을밤에 드문드문 쓸쓸하게 울리는 다듬이 소리." },
+          { key: "滄洲(창주)", desc: "물가 모래톱. 은자들이 유유자적 숨어 사는 이상적인 강호의 세계." }
+        ],
+        commentary: "가을의 쓸쓸함과 가난한 선비의 고단한 벼슬살이, 인간사의 무상한 총욕(寵辱)을 겪은 뒤 속세를 떠나 은일의 이상향인 창주로 귀거래하고자 하는 간절한 심회를 정결하게 그렸습니다."
+      },
+      {
+        id: "poem-27",
+        titleSound: "춘일화김수재이수지이",
+        author: "진화(陳澕)",
+        authorHanja: "陳澕",
+        authorDesc: "고려 대시인. 호 매호(梅湖).",
+        title: "봄날 김 수재의 시에 화답하다 2수 중 제2수",
+        titleHanja: "春日和金秀才二首之二",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 21 (p.13)",
+        lines: [
+          { hanja: "滿樹春紅泣露華", hangul: "만수춘홍읍로화", trans: "나무 가득 핀 붉은 봄꽃은 영롱한 이슬방울에 눈물 흘리고" },
+          { hanja: "映門垂柳欲藏鴉", hangul: "영문수류욕장아", trans: "문 앞을 비추는 수양버들은 까마귀를 숨길 만큼 짙푸르네." },
+          { hanja: "作詩亦是妨眞興", hangul: "작시역시방진흥", trans: "이런 날 굳이 시를 짓는 것조차 참된 흥취를 방해하는 것이니" },
+          { hanja: "閑看東風掃落花", hangul: "한간동풍소락화", trans: "그저 한가로이 봄바람이 떨어진 꽃잎 쓸어가는 것만 바라보노라." }
+        ],
+        notes: [
+          { key: "露華(로화)", desc: "꽃잎 위에 맺힌 맑고 영롱한 이슬의 빛깔." },
+          { key: "藏鴉(장아)", desc: "버들가지 잎이 아주 무성하여 까마귀가 앉아도 보이지 않을 정도임을 뜻함." },
+          { key: "妨眞興(방진흥)", desc: "자연의 아름다움을 억지로 언어(시)로 옮기려 머리를 쥐어짜는 행위가 자연 그대로를 음미하는 참된 흥취를 깨뜨린다는 탈속적 통찰." }
+        ],
+        commentary: "봄빛의 극치 속에서 시를 짓는 인위적인 문학 행위마저 내려놓고, 동풍이 꽃잎을 쓸어가는 자연의 섭리를 그대로 바라보는 무위자연(無爲自然)의 높은 심경을 절묘하게 읊었습니다."
+      },
+      {
+        id: "poem-28",
+        titleSound: "야보",
+        author: "진화(陳澕)",
+        authorHanja: "陳澕",
+        authorDesc: "고려 대시인. 호 매호(梅湖).",
+        title: "들길을 거닐며 (야보)",
+        titleHanja: "野步",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 22 (p.14)",
+        lines: [
+          { hanja: "小梅零落柳僛垂", hangul: "소매령락유기수", trans: "어린 매화는 꽃잎 떨구고 버들가지는 춤추듯 나직이 드리웠는데" },
+          { hanja: "閑踏靑嵐步步遲", hangul: "한답청람보보지", trans: "푸른 아지랑이 안개를 한가로이 밟으며 걸음걸이마저 느릿하네." },
+          { hanja: "漁店閉門人語少", hangul: "어점폐문인어소", trans: "강마을 주막은 문을 닫아 사람 말소리조차 드문데" },
+          { hanja: "一江春雨碧絲絲", hangul: "일강춘우벽사사", trans: "온 강물 위로 보슬보슬 내리는 봄비는 푸른 비단 실오라기 같구나." }
+        ],
+        notes: [
+          { key: "僛垂(기수)", desc: "춤추는 사람이 비틀거리며 아름답게 늘어지듯 버들가지가 하늘거리는 모습." },
+          { key: "靑嵐(청람)", desc: "봄철 산과 들에 푸르스름하게 피어오르는 아지랑이와 안개 기운." },
+          { key: "碧絲絲(벽사사)", desc: "강물에 푸른 실타래처럼 보슬보슬 내리는 봄비의 시각적 형상화." }
+        ],
+        commentary: "봄비 내리는 강마을의 고요한 정경을 느릿한 발걸음의 유장한 리듬과 '푸른 실오라기(碧絲絲)'라는 눈부신 시각적 비유로 담아낸 감각적 서경시의 백미입니다."
+      },
+      {
+        id: "poem-29",
+        titleSound: "서운암사",
+        author: "진화(陳澕)",
+        authorHanja: "陳澕",
+        authorDesc: "고려 대시인. 호 매호(梅湖).",
+        title: "운암사에서 쓰다 (서운암사)",
+        titleHanja: "書雲嵓寺",
+        form: "칠언고시 10구 (七言古詩)",
+        page: "Page 22 (p.14)",
+        lines: [
+          { hanja: "昨夜山梅一枝發", hangul: "작야산매일지발", trans: "어젯밤 깊은 산속 매화꽃 한 가지 피어났건만" },
+          { hanja: "山中老僧不知折", hangul: "산중로승불지절", trans: "산속의 늙은 스님은 꺾어 즐길 줄도 모르네." },
+          { hanja: "使君年少正多情", hangul: "사군연소정다정", trans: "사또(시인)는 젊은 나이라 한창 정이 많아" },
+          { hanja: "走傍寒叢問消息", hangul: "주방한총문소식", trans: "차가운 떨기 곁으로 달려가 봄소식을 묻노라." },
+          { hanja: "恨無仙人雙玉簫", hangul: "한무선인쌍옥소", trans: "신선의 쌍 옥피리를 갖지 못한 것이 한스러우니" },
+          { hanja: "吹破人閒遠離別", hangul: "취파인한원리별", trans: "피리 불어 인간 세상의 아득한 이별의 한을 깨뜨려버리고 싶구나." },
+          { hanja: "到山三日不登山", hangul: "도산삼일불등산", trans: "산에 도착한 지 사흘이 되도록 산에 오르지도 못했으니" },
+          { hanja: "無奈東風却淒切", hangul: "무내동풍각처절", trans: "불어오는 봄바람이 도리어 처절하게 애를 끊는구나." },
+          { hanja: "明朝上馬入紅塵", hangul: "명조상마입홍진", trans: "내일 아침이면 다시 말 위에 올라 번잡한 속세(홍진)로 들어가야 하거늘" },
+          { hanja: "誰賞堂前一簾月", hangul: "수상당전일렴월", trans: "그땐 당간 처마 앞 발에 걸린 저 맑은 달을 뉘라서 감상해 줄 것인가!" }
+        ],
+        notes: [
+          { key: "使君(사군)", desc: "지방관, 태수를 가리키며 여기서는 시인 자신을 젊은 관리로 지칭함." },
+          { key: "吹破(취파)", desc: "피리를 힘차게 불어 세상의 근심과 이별의 슬픔을 날려버림." },
+          { key: "紅塵(홍진)", desc: "붉은 먼지. 번잡하고 어지러운 속세의 삶." },
+          { key: "一簾月(일렴월)", desc: "발(簾) 틈새로 비쳐 드는 한 조각 청초한 달빛." }
+        ],
+        commentary: "깊은 산사의 피어난 매화와 늙은 승려의 무심함, 그에 대비되는 젊은 시인의 다정다감한 인간미와 세속으로 다시 돌아가야 하는 애틋한 아쉬움을 격정적으로 노래했습니다."
+      },
+      {
+        id: "poem-30",
+        titleSound: "신설",
+        author: "진화(陳澕)",
+        authorHanja: "陳澕",
+        authorDesc: "고려 대시인. 궁중 응제시(應製詩).",
+        title: "첫눈 (신설)",
+        titleHanja: "新雪",
+        form: "칠언절구 (七言絶句)",
+        page: "Page 23 (p.15 / -9-)",
+        lines: [
+          { hanja: "昨夜紛紛瑞雪新", hangul: "작야분분서설신", trans: "어젯밤 펄펄 어지러이 상서로운 첫눈이 갓 내리더니" },
+          { hanja: "曉來鵷鷺賀中宸", hangul: "효래원로하중신", trans: "새벽녘에 문무백관들이 대궐에 나아가 임금님께 하례를 올리네." },
+          { hanja: "輕風不起陰雲捲", hangul: "경풍불기음운권", trans: "가벼운 바람조차 일지 않고 짙은 먹구름도 활짝 걷히어" },
+          { hanja: "白玉花開萬樹春", hangul: "백옥화개만수춘", trans: "백옥 같은 눈꽃이 온 나무마다 활짝 피어 봄빛을 이루었구나." }
+        ],
+        notes: [
+          { key: "瑞雪(서설)", desc: "상서로운 눈. 풍년이 들 길조로 여김." },
+          { key: "鵷鷺(원로)", desc: "원앙과 해오라기. 조정에서 줄지어 위의를 갖추고 하례하는 문무백관을 비유." },
+          { key: "中宸(중신)", desc: "임금이 계신 궁궐 깊은 곳 또는 임금을 뜻함." },
+          { key: "白玉花(백옥화)", desc: "나뭇가지에 하얗게 쌓인 눈꽃을 옥 같은 꽃에 빗댄 표현." }
+        ],
+        commentary: "상서로운 서설(瑞雪)이 대지를 적신 아름다운 겨울 아침, 대궐에 모여든 백관들의 조하(朝賀)와 눈꽃 만발한 맑은 궁궐의 정경을 온화하고 장엄한 시어로 찬양한 전형적인 궁중 응제시의 수작입니다."
+      }
+    ];
+
+    // 상태 관리
+    let currentAuthor = "all";
+    let searchQuery = "";
+        let showTrans = true;
+
+    // DOM 요소
+    const poemContainer = document.getElementById("poemCardContainer");
+    const authorFilterList = document.getElementById("authorFilterList");
+    const tocList = document.getElementById("tocList");
+    const searchInput = document.getElementById("searchInput");
+        const toggleTransBtn = document.getElementById("toggleTransBtn");
+    const themeSelect = document.getElementById("themeSelect");
+    const toast = document.getElementById("toast");
+
+    // 작가별 목록 추출
+    function getAuthors() {
+      const authorsMap = new Map();
+      poemsData.forEach(p => {
+        const count = authorsMap.get(p.author) || 0;
+        authorsMap.set(p.author, count + 1);
+      });
+      return authorsMap;
+    }
+
+    // 사이드바 작가 목록 렌더링
+    function renderSidebar() {
+      const authors = getAuthors();
+      authorFilterList.innerHTML = `
+        <li class="author-item ${currentAuthor === 'all' ? 'active' : ''}" data-author="all">
+          <span>전체 시 보기</span>
+          <span class="author-count">${poemsData.length}</span>
+        </li>
+      `;
+
+      authors.forEach((count, author) => {
+        const li = document.createElement("li");
+        li.className = `author-item ${currentAuthor === author ? 'active' : ''}`;
+        li.dataset.author = author;
+        li.innerHTML = `
+          <span>${author}</span>
+          <span class="author-count">${count}</span>
+        `;
+        authorFilterList.appendChild(li);
+      });
+
+      // 클릭 이벤트
+      document.querySelectorAll(".author-item").forEach(item => {
+        item.addEventListener("click", () => {
+          document.querySelectorAll(".author-item").forEach(i => i.classList.remove("active"));
+          item.classList.add("active");
+          currentAuthor = item.dataset.author;
+          renderPoems();
+          renderToc();
+        });
+      });
+    }
+
+    // 목차 (TOC) 렌더링: 제목(작자) 한자 원문 형태
+    function renderToc() {
+      tocList.innerHTML = "";
+      const filtered = getFilteredPoems();
+      filtered.forEach((p, idx) => {
+        const titleHoonList = Array.from(p.titleHanja).filter(c => hanjaDict[c]).map(c => `${c}[${hanjaDict[c]}]`).join(' ');
+        const tooltipText = `${p.titleHanja} (${p.title}) | ${titleHoonList} | 작가: ${p.author}`;
+        const li = document.createElement("li");
+        li.className = "toc-item";
+        li.innerHTML = `<a href="#${p.id}" title="${tooltipText}"><span style="color:var(--accent); font-weight:600; margin-right:0.3rem;">${idx + 1}.</span><strong style="font-family:'Noto Serif KR',serif; font-size:0.92rem; color:var(--text-main);">${p.titleHanja}</strong> <span style="font-size:0.8rem; color:var(--text-muted);">(${p.authorHanja})</span></a>`;
+        tocList.appendChild(li);
+      });
+    }
+
+    // 필터링된 시 목록 반환
+    function getFilteredPoems() {
+      return poemsData.filter(p => {
+        const matchAuthor = currentAuthor === "all" || p.author === currentAuthor;
+        if (!matchAuthor) return false;
+
+        if (!searchQuery.trim()) return true;
+
+        const q = searchQuery.toLowerCase().trim();
+        const titleMatch = p.title.toLowerCase().includes(q) || p.titleHanja.includes(q);
+        const authorMatch = p.author.toLowerCase().includes(q) || p.authorHanja.includes(q);
+        const linesMatch = p.lines ? p.lines.some(l => l.hanja.includes(q) || l.hangul.includes(q) || l.trans.toLowerCase().includes(q)) : false;
+        const subMatch = p.subPoems ? p.subPoems.some(sp => sp.lines.some(l => l.hanja.includes(q) || l.hangul.includes(q) || l.trans.toLowerCase().includes(q))) : false;
+
+        return titleMatch || authorMatch || linesMatch || subMatch;
+      });
+    }
+
+    // 한 글자씩 분해하여 한자/음독 박스 생성
+    // 672자 한자 개별 훈음 사전
+    const hanjaDict = {"一":"한 일","三":"석 삼","上":"위 상","下":"아래 하","不":"아니 불","世":"인간/대 세","丘":"언덕 구","中":"가운데 중","丰":"예쁠/풍채 봉","久":"오랠 구","之":"갈/어조사 지","乘":"탈 승","九":"아홉 구","也":"어조사 야","乾":"하늘 건","亂":"어지러울 란","了":"마칠/밝을 료","事":"일 사","五":"다섯 오","井":"우물 정","交":"사귈/섞일 교","亦":"또 역","亭":"정자 정","人":"사람 인","今":"이제 금","他":"다를/남 타","仙":"신선 선","令":"하여금 령","伐":"칠/벨 벌","休":"쉴 휴","低":"낮을 저","何":"어찌 하","作":"지을 작","使":"하여금 사","來":"올 래","依":"의지할 의","侵":"침노할 침","便":"편할 편/곧 변","俗":"풍속/세속 속","信":"믿을 신","倚":"기댈 의","倦":"게으를/피곤할 권","偸":"훔칠 투","傍":"곁 방","備":"갖출 비","傳":"전할 전","僛":"비틀거릴 기","僧":"중 승","儒":"선비 유","兀":"우뚝할 올","先":"먼저 선","兒":"아이 아","入":"들 입","兩":"두 량","公":"공변될/공 公","六":"여섯 육","兮":"어조사 혜","况":"하물며 황","冷":"찰 랭","凄":"쓸쓸할 처","凉":"서늘할 량","凌":"능멸할/언덕 릉","减":"덜 감","出":"날 출","切":"끊을/간절할 절","別":"나눌/이별할 별","到":"이를 도","前":"앞 전","劒":"칼 검","功":"공 공","勃":"우두커니/갑자기 발","動":"움직일 동","勝":"이길/빼어날 승","勸":"권할 권","匏":"바가지 포","北":"북녘 북","十":"열 십","千":"일천 천","午":"낮/말 오","半":"반 반","南":"남녘 남","卜":"점칠 복","卧":"누울 와","却":"물리칠/도리어 각","去":"갈 거","叢":"떨기 총","口":"입 구","古":"옛 고","可":"옳을 가","司":"맡을 사","吁":"탄식할 우","各":"각각 각","同":"한가지 동","向":"향할 향","君":"임금/그대 군","吟":"읊을 음","含":"머금을 함","吹":"불 취","吾":"나 오","咽":"목멜 열/연","哀":"슬플 애","和":"화할 화","啼":"울 제","善":"착할 선","嘯":"휘파람불 소","喚":"부를 환","喜":"기쁠 희","喧":"떠들썩할 훤","喃":"지저귈 남","單":"홑 단","噪":"떠들썩할 조","哭":"울 곡","因":"인할 인","回":"돌 회","困":"곤할 곤","國":"나라 국","園":"동산 원","土":"흙 토","地":"땅 지","坐":"앉을 좌","垂":"드리울 수","垣":"담 원","城":"성 성","基":"터 기","堂":"집 당","塵":"티끌 진","塹":"구덩이 참","壁":"벽 벽","壑":"골짜기 학","士":"선비 사","壯":"씩씩할 장","聲":"소리 성","處":"곳 처","夕":"저녁 석","外":"밖 외","多":"많을 다","夜":"밤 야","夢":"꿈 몽","大":"큰 대","天":"하늘 천","太":"클 태","夫":"지아비 부","央":"가운데 앙","失":"잃을 실","奇":"기이할 기","奈":"어찌 내","奎":"별 규","奧":"깊을 오","女":"계집 녀","好":"좋을 호","如":"같을 여","婦":"며느리/아낙 부","娥":"예쁠 아","娉":"장가들/어여쁠 핑","婷":"예쁠 정","嫋":"가냘플 뇨","妓":"기생 기","妥":"온당할 타","始":"비로소 시","姓":"성 성","妾":"첩 첩","妻":"아내 처","姿":"모양 자","威":"위엄 위","娘":"아가씨 랑","娟":"예쁠 연","嬋":"고울 선","嬌":"아리따울 교","娜":"아리따울 나","孥":"자식 노","子":"아들 자","字":"글자 자","存":"있을 존","孤":"외로울 고","孫":"손자 손","宇":"집 우","守":"지킬 수","安":"편안할 안","宋":"송나라 송","完":"완전할 완","宗":"마루 종","官":"벼슬 관","定":"정할 정","宜":"마땅할 의","客":"손 객","宣":"베풀 선","室":"집 실","宮":"대궐 궁","家":"집 가","宿":"잘 숙","寂":"고요할 적","寄":"부칠 기","密":"빽빽할 밀","寒":"찰 한","富":"부유할 부","寐":"잠잘 매","寥":"쓸쓸할 료","寫":"베낄/그릴 사","寶":"보배 보","寸":"마디 촌","寺":"절 사","尋":"찾을 심","射":"쏠 사","將":"장수/장차 장","專":"오로지 전","尊":"높을 존","小":"작을 소","少":"적을/젊을 소","爾":"너 이","尙":"오히려 상","尺":"자 척","尾":"꼬리 미","局":"판 국","居":"살 거","屋":"집 옥","屑":"가루 설","展":"펼 전","屬":"무리 속","山":"산 산","岐":"갈림길 기","岡":"산등성이 강","岩":"바위 암","峰":"봉우리 봉","嶺":"재 령","嶽":"큰산 악","嶢":"높을 요","巉":"험할 참","川":"내 천","州":"고을 주","巡":"돌 순","巢":"새집 소","工":"장인 공","左":"왼 좌","巧":"교묘할 교","差":"어긋날 차","己":"몸 기","已":"이미 이","巴":"바랄 파","巷":"거리 항","市":"저자 시","布":"베 포","希":"바랄 희","帳":"휘장 장","帶":"띠 대","常":"항상 상","幄":"장막 악","幅":"폭 폭","幾":"몇 기","床":"평상 상","座":"자리 좌","庭":"뜰 정","庵":"암자 암","庶":"무리 서","康":"편안할 강","庸":"쓸 용","庾":"곳집 유","廉":"청렴할 렴","廊":"복도 랑","廟":"사당 묘","廢":"폐할 폐","廣":"넓을 광","廳":"관청 청","延":"끌 연","建":"세울 건","廻":"돌 회","弄":"희롱할 롱","引":"끌 인","弗":"아닐 불","弘":"넓을 홍","弦":"활시위 현","弱":"약할 약","張":"베풀 장","强":"강할 강","彌":"두루 미","彈":"탄알 탄","彊":"굳셀 강","形":"모양 형","彩":"채색 채","彫":"새길 조","彬":"빛날 빈","彰":"밝힐 창","影":"그림자 영","彼":"저 피","往":"갈 왕","征":"칠/길갈 정","待":"기다릴 대","律":"법률 률","後":"뒤 후","徐":"천천히 서","徒":"무리 도","得":"얻을 득","從":"좇을 종","御":"어거할 어","復":"회복할 복/다시 부","微":"작을 미","徵":"부를 징","德":"덕 덕","徹":"통할 철","心":"마음 심","必":"반드시 필","忌":"꺼릴 기","忍":"참을 인","志":"뜻 지","忘":"잊을 망","忙":"바쁠 망","忠":"충성 충","忡":"근심할 충","快":"유쾌할 쾌","念":"생각 념","忿":"성낼 분","忽":"문득 홀","怒":"성낼 노","思":"생각 사","怠":"게으를 태","怡":"기쁠 이","急":"급할 급","性":"성품 성","怨":"원망할 원","怪":"괴이할 괴","怳":"어렴풋할 황","恐":"두려울 공","恕":"용서할 서","恨":"한 한","恩":"은혜 은","恭":"공손할 공","息":"숨쉴 식","恰":"마치 흡","悌":"공경할 제","悠":"멀 유","患":"근심 환","悲":"슬플 비","情":"뜻/정 정","悵":"슬퍼할 창","惜":"아낄 석","惟":"생각할 유","惠":"은혜 혜","惡":"악할 악","惰":"게으를 타","惱":"괴로워할 뇌","想":"생각 상","愁":"시름 수","愈":"더욱 유","愍":"불쌍히여길 민","意":"뜻 의","愚":"어리석을 우","感":"느낄 감","慄":"떨릴 률","慈":"사랑할 자","態":"모양 태","慌":"어리둥절할 황","慎":"삼갈 신","慕":"사모할 모","慘":"참혹할 참","慢":"게으를 만","慧":"지혜 혜","慰":"위로할 위","慶":"경사 경","憂":"근심 우","憐":"불쌍히여길 련","慍":"성낼 온","憲":"법 헌","憶":"생각할 억","應":"응할 응","懽":"기쁠 환","懷":"품을 회","戈":"창 과","戍":"지킬 수","戎":"오랑캐 융","成":"이룰 성","我":"나 아","戒":"경계할 계","或":"혹 혹","戚":"친척 척","戟":"창 극","截":"끊을 절","戰":"싸움 전","戲":"놀 희","戶":"집 호","房":"방 방","所":"바 소","扁":"작을/조각 편","扇":"부채 선","扉":"사립문 비","手":"손 수","才":"재주 재","打":"칠 타","托":"맡길 탁","扣":"두드릴 구","扶":"도울 부","批":"비평할 비","技":"재주 기","抄":"베낄 초","把":"잡을 파","抑":"누를 억","投":"던질 투","折":"꺾을 절","抱":"안을 포","拂":"떨칠 불","拔":"뽑을 발","拘":"잡을 구","招":"부를 초","拜":"절 배","括":"묶을 괄","拾":"주울 습","持":"가질 지","指":"가리킬 지","按":"누를 안","挑":"돋울 도","振":"떨칠 진","挽":"당길 만","授":"줄 수","採":"캘 채","探":"찾을 탐","接":"이을 접","推":"밀 추","掩":"가릴 엄","提":"끌 제","揖":"읍할 읍","揚":"날릴 양","換":"바꿀 환","揮":"휘두를 휘","援":"도울 원","損":"덜 손","搖":"흔들릴 요","搆":"얽을 구","撫":"어루만질 무","撰":"지을 찬","操":"잡을 조","擬":"비길 의","支":"지탱할 지","收":"거둘 수","攸":"바 유","改":"고칠 개","攻":"칠 공","放":"놓을 방","政":"정사 정","故":"옛/연고 고","效":"본받을 효","敍":"차례 서","敏":"민첩할 민","救":"구원할 구","敎":"가르칠 교","敢":"감히 감","散":"흩을 산","敦":"도타울 돈","敬":"공경할 경","數":"셀 수/자주 삭","敲":"두드릴 고","整":"가지런할 정","敵":"원수 적","敷":"펼 부","文":"글월 문","齋":"재계할 재","斑":"얼룩 반","斗":"말 두","料":"헤아릴 료","斛":"휘 곡","斜":"비낄 사","斟":"술따를 짐","斤":"근 근","斧":"도끼 부","斬":"벨 참","斷":"끊을 단","斯":"이 사","新":"새 신","方":"모 방","於":"어조사 어","施":"베풀 시","旁":"곁 방","旅":"나그네 여","旋":"돌 선","族":"겨레 족","旗":"기 기","日":"날 일","旦":"아침 단","旨":"뜻 지","早":"이를 조","旬":"열흘 순","旭":"아침해 욱","旱":"가물 한","旺":"왕성할 왕","旻":"하늘 민","昆":"맏 곤","昇":"오를 승","明":"밝을 명","昏":"어두울 혼","易":"쉬울 이/바꿀 역","昔":"옛 석","星":"별 성","春":"봄 춘","昧":"어두울 매","昨":"어제 작","昭":"밝을 소","是":"이/옳을 시","晝":"낮 주","晨":"새벽 신","晴":"갤 청","景":"경치 경","暇":"겨를 가","暑":"더울 서","暖":"따뜻할 난","暗":"어두울 암","暝":"어두울 명","暮":"저물 모","暴":"사나울 폭","曆":"책력 력","曉":"새벽 효","暾":"아침해 돈","曜":"빛날 요","曝":"쬘 폭","曲":"굽을 곡","更":"고칠 경/다시 갱","書":"글 서","曹":"무리 조","曼":"길 만","曾":"일찍 증","會":"모일 회","月":"달 월","有":"있을 유","朋":"벗 붕","服":"옷 복","望":"바랄 망","朝":"아침 조","期":"기약할 기","木":"나무 목","未":"아닐 미","末":"끝 말","本":"근본 본","朱":"붉을 주","朴":"순박할 박","朵":"꽃송이 타","李":"오얏 리","杏":"살구 행","村":"마을 촌","杖":"지팡이 장","杜":"막을/팥배 두","杞":"구기자 기","束":"묶을 속","杯":"잔 배","東":"동녘 동","松":"소나무 송","板":"널빤지 판","林":"숲 림","枝":"가지 지","枯":"마를 고","架":"시렁 가","柄":"자루 병","柏":"측백 백","某":"아무 모","染":"물들일 염","柔":"부드러울 유","柘":"산뽕나무 자","柱":"기둥 주","柳":"버들 류","柴":"섶 시","栽":"심을 재","桃":"복숭아 도","桐":"오동나무 동","桑":"뽕나무 상","桓":"굳셀 환","梁":"들보 량","梅":"매화 매","條":"가지 조","梢":"나뭇가지끝 초","梯":"사다리 제","梵":"불경 범","棋":"바둑 기","森":"빽빽할 삼","棹":"노 도","棲":"살 서","植":"심을 식","楊":"버들 양","極":"극진할 극","楓":"단풍나무 풍","榮":"꽃 영","構":"얽을 구","槍":"창 창","槐":"회화나무 괴","檻":"난간 함","橫":"가로 횡","樹":"나무 수","機":"틀 기","橋":"다리 교","橘":"귤 귤","橙":"유자 등","壇":"단 단","歸":"돌아갈 귀","死":"죽을 사","殘":"남을 잔","殞":"죽을 운","殊":"다를 수","殖":"불릴 식","段":"조각 단","殷":"은나라 은","殿":"전각 전","毁":"헐 훼","每":"매양 매","比":"견줄 비","毛":"털 모","毫":"터럭 호","氈":"모전 전","氏":"각시/성 씨","民":"백성 민","氣":"기운 기","水":"물 수","氷":"얼음 빙","永":"길 영","汀":"물가 정","求":"구할 구","江":"강 강","池":"못 지","汝":"너 여","汗":"땀 한","汎":"뜰 범","汐":"조수 석","汕":"물고기잡을 산","汚":"더러울 오","汪":"넓을 왕","決":"결단할 결","沈":"잠길 침","沐":"머리감을 목","沒":"가라앉을 몰","沙":"모래 사","沛":"늪 패","沫":"거품 말","沮":"막을 저","波":"물결 파","泣":"울 읍","泥":"진흙 니","注":"부을 주","泰":"클 태","泱":"넓을 앙","泳":"헤엄칠 영","洋":"큰바다 양","洌":"맑을 렬","洛":"낙양 락","洞":"골짜기 동","洪":"넓을 홍","洲":"섬/모래톱 주","洵":"참으로 순","流":"흐를 류","浅":"얕을 천","浮":"뜰 부","海":"바다 해","浸":"잠길 침","消":"사라질 소","涌":"솟을 용","涉":"건널 섭","涓":"시내 연","涵":"젖을 함","涯":"물가 애","液":"진액 액","涼":"서늘할 량","淀":"앙금 정","淋":"장마 림","淑":"맑을 숙","淘":"쌀씻을 도","淚":"눈물 루","淡":"맑을 담","深":"깊을 심","淮":"회수 회","混":"섞일 혼","淹":"담글 엄","添":"더할 첨","淸":"맑을 청","渚":"물가 저","渡":"건널 도","渣":"찌꺼기 사","渥":"두터울 악","溫":"따뜻할 온","渭":"위수 위","港":"항구 항","渴":"목마를 갈","渺":"아득할 묘","游":"헤엄칠 유","湃":"물결칠 패","溟":"어두울 명","滄":"푸를 창","滅":"멸할 멸","滋":"불을 자","滑":"미끄러울 활","滓":"찌꺼기 재","滔":"물넘칠 도","滯":"막힐 체","漁":"고기잡을 어","漂":"떠돌 표","漆":"옻 칠","漏":"샐 루","漓":"스며들 리","演":"펼 연","漠":"사막 막","漢":"한나라 한","漣":"물놀 연","漫":"질펀할 만","漱":"양치질할 수","漲":"불을 창","漸":"점점 점","漾":"물결출렁일 양","漿":"미음 장","潁":"영수 영","潔":"깨끗할 결","潘":"뜨물 반","潛":"잠길 잠","潤":"윤택할 윤","潭":"못 담","潮":"조수 조","澌":"다할 사","濆":"물뿜을 분","澈":"맑을 철","澎":"물소리 팽","瀾":"물결 란","瀟":"비바람 소","瀨":"여울 뢰","瀧":"비올 롱","瀣":"이슬 해","瀕":"물가 빈","瀛":"바다 영","瀚":"넓을 한","瀝":"떨어질 력","灘":"여울 탄","灰":"재 회","灶":"부엌 조","灼":"사를 작","災":"재앙 재","炊":"불땔 취","炎":"불꽃 염","炭":"숯 탄","炳":"밝을 병","点":"점 점","烏":"까마귀 오","烈":"매울 렬","烟":"연기 연","烽":"봉화 봉","焉":"어찌 언","焙":"불쬘 배","焚":"불사를 분","無":"없을 무","焦":"탈 초","然":"그러할 연","煙":"연기 연","照":"비출 조","煩":"번거로울 번","熄":"꺼질 식","熙":"빛날 희","熟":"익을 숙","熱":"더울 열","燃":"탈 연","燈":"등 등","燎":"화톳불 료","燕":"제비 연","營":"경영할 영","燦":"빛날 찬","燭":"촛불 촉","爐":"화로 로","爛":"빛날 란","爪":"손톱 조","爭":"다툴 쟁","爰":"이에 원","爲":"할 위","爵":"벼슬 작","父":"아비 부","爺":"아비 야","爻":"효 효","爽":"시원할 상","牒":"서류 첩","牙":"어금니 아","牛":"소 우","牢":"우리 뢰","牧":"칠 목","物":"물건 물","牲":"희생 생","牽":"끌 견","犀":"무소 서","犁":"쟁기 려","狂":"미칠 광","狄":"오랑캐 적","狐":"여우 호","狗":"개 구","狡":"교활할 교","狩":"사냥 수","獨":"홀로 독","獲":"얻을 획","獵":"사냥 엽","獸":"짐승 수","獻":"바칠 헌","玄":"검을 현","率":"거느릴 솔","玉":"구슬 옥","王":"임금 왕","琴":"거문고 금","琵":"비파 비","琶":"비파 파","瑟":"비파 슬","瑁":"대모 매","瑜":"옥돌 유","瑞":"상서 서","瑤":"옥 요","瓊":"옥 경","瓜":"오이 과","瓢":"박 표","瓦":"기와 와","瓮":"독 옹","甑":"시루 증","甘":"달 감","甚":"심할 심","甜":"달 첨","生":"날 생","產":"낳을 산","用":"쓸 용","田":"밭 전","由":"말미암을 유","甲":"갑옷 갑","申":"펼 신","男":"사내 남","界":"지경 계","留":"머무를 류","畦":"밭두둑 휴","番":"차례 번","疇":"밭두둑 주","疎":"성길 소","疑":"의심할 의","疢":"열병 진","疲":"피곤할 피","疾":"병 질","病":"병 병","痛":"아플 통","痕":"흔적 흔","瘁":"수척할 췌","療":"고칠 료","癡":"어리석을 치","發":"쏠/일어날 발","白":"흰 백","百":"일백 백","的":"과녁 적","皆":"다 개","皇":"임금 황","皎":"밝을 교","皓":"흴 호","皮":"가죽 피","皺":"주름 추","皿":"그릇 명","盆":"동이 분","益":"더할 익","盛":"성할 성","盜":"도둑 도","盞":"잔 잔","盡":"다할 진","監":"볼 감","盤":"소반 반","盧":"화로 로","目":"눈 목","直":"곧을 직","相":"서로 상","看":"볼 간","省":"살필 성","眉":"눈썹 미","真":"참 진","眠":"잠잘 면","眩":"어지러울 현","眼":"눈 안","着":"붙을 착","眺":"바라볼 조","眷":"돌아볼 권","眸":"눈동자 모","睫":"속눈썹 첩","督":"살필 독","睿":"밝을 예","瞬":"깜짝할 순","瞻":"볼 첨","瞿":"놀라볼 구","矜":"자랑할 긍","矢":"화살 시","知":"알 지","矩":"모날 구","短":"짧을 단","矮":"키작을 왜","矯":"바로잡을 교","石":"돌 석","砂":"모래 사","砌":"섬돌 체","破":"깨뜨릴 파","碧":"푸를 벽","磬":"경쇠 경","磯":"물가돌 기","磧":"모래펄 적","磨":"갈 마","示":"보일 시","社":"사직 사","祀":"제사 사","祗":"다만 지","祈":"빌 기","祉":"복 지","祖":"할아비 조","神":"귀신 신","祥":"상서 상","祭":"제사 제","禍":"재앙 화","禎":"상서 정","福":"복 복","禪":"선 선","禮":"예도 례","禳":"제사지낼 양","禹":"우임금 우","禽":"새 금","禾":"벼 화","秀":"빼어날 수","私":"사사 사","秋":"가을 추","科":"과목 과","秒":"초 초","秘":"숨길 비","租":"조세 조","秣":"말먹이 말","稍":"점점 초","穗":"이삭 수","積":"쌓을 적","穎":"이삭 영","穫":"거둘 확","穴":"구멍 혈","究":"궁구할 구","穹":"하늘 궁","空":"빌 공","穿":"뚫을 천","突":"갑자기 돌","竊":"훔칠 절","立":"설 립","童":"아이 동","端":"끝 단","競":"다툴 경","竹":"대 죽","竿":"장대 간","竺":"대나무 축","笈":"책상자 급","笋":"죽순 순","笠":"삿갓 립","笙":"생황 생","笛":"피리 적","符":"부적 부","第":"차례 제","筆":"붓 필","等":"무리 등","筋":"힘줄 근","筏":"뗏목 벌","筵":"자리 연","策":"꾀 책","箇":"낱 개","箋":"종이 전","箏":"쟁 쟁","箸":"젓가락 저","節":"마디 절","範":"법 범","築":"쌓을 축","篇":"책 편","篙":"상앗대 고","篷":"배덮개 봉","簾":"발 렴","簫":"퉁소 소","簽":"표 서명할 첨","簷":"처마 첨","簿":"장부 부","籀":"읽을 주","籍":"서책 적","籠":"대바구니/새장 롱","籤":"제비 첨","籬":"울타리 리","米":"쌀 미","粉":"가루 분","粒":"낟알 립","粗":"거칠 조","粮":"양식 량","粹":"순수할 수","精":"정할 정","糊":"풀칠할 호","糕":"떡 고","糖":"사탕 당","糞":"똥 분","糟":"지게미 조","糠":"겨 강","糧":"양식 량","糸":"실 사","系":"이을 계","糾":"얽힐 규","紀":"벼리 기","約":"약속할 약","紅":"붉을 홍","紆":"굽을 우","紋":"무늬 문","納":"바칠 납","紐":"끈 뉴","純":"순수할 순","紗":"얇은사 사","紘":"끈 굉","級":"등급 급","素":"희고본디 소","索":"찾을 색","紫":"자줏빛 자","累":"묶을 류","細":"가늘 세","紳":"큰띠 신","紹":"이을 소","經":"글 경","結":"맺을 결","絢":"빛날 현","給":"줄 급","絶":"끊을 절","絲":"실 사","絮":"솜 서","網":"그물 망","綴":"엮을 철","綿":"목화 면","緊":"팽팽할 긴","綱":"벼리 강","線":"줄 선","練":"익힐 련","編":"엮을 편","緩":"느릴 완","緘":"봉할 함","緣":"인연 연","縛":"묶을 박","縱":"늘어질/비록 종","縷":"실 루","繁":"번성할 번","縹":"옥색 표","織":"짤 직","繕":"기울 선","繩":"줄 승","繪":"그림 회","繭":"고치 견","羅":"비단 라","纖":"가늘 섬","纜":"닻줄 람","缺":"이지러질 결","罈":"항아리 담","罕":"드물 한","羈":"굴레 기","羊":"양 양","美":"아름다울 미","羞":"부끄러울 수","群":"무리 군","羽":"깃 우","翁":"늙은이 옹","翅":"날개 시","翠":"물푸레/비취 취","翡":"비취 비","翼":"날개 익","翹":"꼬리깃 교","老":"늙을 로","考":"상고할 고","者":"놈/사람 자","耆":"늙은이 기","而":"말이을 이","耐":"견딜 내","耕":"밭갈 경","耳":"귀 이","耶":"어조사 야","聊":"애오라지 료","聖":"성인 성","聞":"들을 문","聯":"연할 련","聰":"밝을 총","聾":"귀먹을 롱","聽":"들을 청","聿":"붓 율","肉":"고기 육","股":"넓적다리 고","肩":"어깨 견","育":"기를 육","肺":"허파 폐","胞":"세포 포","胡":"턱밑살/오랑캐 호","背":"등 배","胎":"아이밸 태","胄":"자손 주","胸":"가슴 흉","能":"능할 능","脂":"기름 지","脆":"연할 취","脇":"갈비뼈 협","脈":"맥 맥","脊":"등마루 척","脫":"벗을 탈","脯":"포 포","脹":"부풀 창","脾":"지라 비","腑":"장부 부","腸":"창자 장","腹":"배 복","膏":"기름 고","膚":"살갗 부","膜":"막 막","膝":"무릎 슬","膠":"아교 교","膨":"부풀 팽","膽":"쓸개 담","臂":"팔 비","臣":"신하 신","臥":"누울 와","臨":"임할 림","自":"스스로 자","臭":"냄새 취","至":"이를 지","致":"이를 치","臺":"대 대","與":"더불어 여","興":"흥할 흥","舊":"옛 구","舌":"혀 설","舍":"집 사","舒":"펼 서","舟":"배 주","航":"배 항","般":"일반 반","舶":"배 박","船":"배 선","艇":"작은배 정","良":"어질 량","艱":"어려울 간","色":"빛 색","艸":"풀 초","芳":"꽃다울 방","花":"꽃 화","苔":"이끼 태","苗":"모 묘","苛":"가혹할 가","若":"같을 약","苦":"쓸 고","英":"꽃부리 영","茂":"무성할 무","茅":"띠 모","范":"풀이름/법 범","苟":"진실로 구","茫":"아득할 망","茨":"지붕일 자","荷":"연꽃 하","茶":"차 다/차 차","草":"풀 초","荒":"거칠 황","荻":"물억새 적","莫":"없을 막","華":"빛날 화","落":"떨어질 락","葉":"잎 엽","著":"나타날 저/붙을 착","葛":"칡 갈","董":"감독할 동","葭":"갈대 가","葬":"장사지낼 장","葵":"해바라기 규","葺":"지붕일 즙","萬":"일만 만","萱":"원추리 원","蒲":"부들 포","蒼":"푸를 창","蓄":"쌓을 축","席":"자리 석","蓑":"도롱이 사","蓬":"쑥 봉","蓮":"연꽃 련","薄":"엷을 박","薦":"천거할 천","藉":"깔개 자","藍":"쪽 람","藏":"숨길 장","藝":"재주 예","藤":"등나무 등","藥":"약 약","藻":"마름 조","蘆":"갈대 로","蘇":"되살아날 소","蘋":"개구리밥 빈","蘚":"이끼 선","蘭":"난초 란","虎":"호랑이 호","虛":"빌 허","虞":"헤아릴/순임금 우","號":"부를 호","蜀":"촉나라 촉","蜂":"벌 봉","蜃":"조개 신","蜊":"조개 리","蛙":"개구리 와","蛛":"거미 주","蛩":"귀뚜라미 공","蛾":"나방 아","蜩":"매미 조","蝶":"나비 접","螢":"반딧불 형","融":"녹을 융","螺":"소라 라","蟬":"매미 선","蠢":"꿈틀거릴 준","蠡":"좀벌레 려","蟹":"게 해","蟾":"두꺼비 섬","蟻":"개미 의","血":"피 혈","行":"다닐 행","術":"재주 술","街":"거리 가","衡":"저울대 형","衣":"옷 의","表":"겉 표","衫":"적삼 삼","衰":"쇠할 쇠","衲":"기울 납","袂":"소매 몌","袈":"가사 가","裟":"가사 사","裁":"마를 재","裂":"찢을 렬","裳":"치마 상","裴":"배회할 배","裏":"속 리","裔":"후손 예","裕":"넉넉할 유","裙":"치마 군","補":"도울/기울 보","裝":"꾸밀 장","製":"지을 제","複":"겹칠 복","褐":"갈옷 갈","褒":"기릴 포","褓":"포대기 보","襄":"도울 양","襟":"옷깃 금","西":"서녘 서","要":"요긴할 요","覆":"덮을 복","見":"볼 견","規":"법 규","覓":"찾을 멱","視":"볼 시","覺":"깨달을 각","覽":"볼 람","觀":"볼 관","角":"뿔 각","言":"말씀 언","訂":"바로잡을 정","託":"부탁할 탁","記":"기록할 기","訪":"찾을 방","設":"베풀 설","許":"허락할 허","訴":"하소연할 소","診":"진찰할 진","詞":"말 사","詠":"읊을 영","試":"시험할 시","詩":"시 시","話":"말씀 화","該":"해당할 해당","詳":"자세할 상","誡":"경계할 계","說":"말씀 설","誰":"누구 수","課":"공부할 과","調":"고를 조","談":"말씀 담","請":"청할 청","諒":"살필 량","論":"논할 논","諷":"풍자할 풍","諸":"모든 제","諺":"속담 언","諾":"대답할 낙","謀":"꾀할 모","謂":"이를 위","謝":"사례할 사","謠":"노래 요","謙":"겸손할 겸","謗":"헐뜯을 방","講":"익힐 강","識":"알 식","譜":"계보 보","警":"경계할 경","譬":"비유할 비","議":"의논할 의","護":"보호할 호","讚":"칭찬할 찬","谷":"골 곡","豆":"콩 두","豈":"어찌 기","象":"코끼리/형상 상","豪":"호걸 호","豫":"미리 예","豹":"표범 표","貞":"곧을 정","負":"질/저버릴 부","財":"재물 재","貧":"가난할 빈","貨":"재물 화","貫":"꿸 관","責":"꾸짖을 책","貴":"귀할 귀","費":"쓸 비","貿":"무역할 무","賀":"하례할 하","賈":"장사 가","賊":"도둑 적","資":"재물 자","賑":"구휼할 진","賓":"손 빈","賜":"줄 사","賞":"상줄 상","賢":"어질 현","賤":"천할 천","賦":"구실/부 부","賭":"도박할 도","贖":"속죄할 속","赤":"붉을 적","赦":"용서할 사","赫":"빛날 혁","走":"달릴 주","赴":"나아갈 부","起":"일어날 기","越":"넘을 월","趣":"뜻 취","足":"발 족","趾":"발가락 지","跨":"타넘을 과","路":"길 로","踐":"밟을 천","踏":"밟을 답","蹟":"자취 적","躑":"머뭇거릴 척","躅":"머뭇거릴 촉","身":"몸 신","車":"수레 차","軌":"바퀴자국 궤","軒":"처마/수레 헌","軟":"부드러울 연","軫":"수레뒤턱 진","軸":"굴대 축","輕":"가벼울 경","載":"해/실을 재","輪":"바퀴 륜","輯":"모을 집","輸":"보낼 수","輿":"수레 여","轅":"끌채 원","轉":"구를 전","轍":"바퀴자국 철","辛":"매울 신","辜":"허물 고","辟":"임금 벽","辰":"별 진/때 신","辱":"욕될 욕","農":"농사 농","迂":"멀 우","迎":"맞을 영","近":"가까울 근","返":"돌아올 반","迫":"핍박할 박","述":"지을 술","迷":"미혹할 미","追":"쫓을 추","退":"물러날 퇴","送":"보낼 송","逃":"달아날 도","逆":"거스를 역","透":"뚫을 투","逐":"쫓을 축","通":"통할 통","逝":"갈 서","逞":"굳셀 령","逗":"머무를 두","這":"이 저","造":"지을 조","逢":"만날 봉","連":"이을 련","遊":"놀 유","運":"돌 운","過":"지날 과","遐":"멀 하","遑":"급할 황","道":"길 도","達":"통달할 달","違":"어길 위","遠":"멀 원","遣":"보낼 견","遙":"멀 요","適":"맞을 적","遭":"만날 조","遮":"가릴 차","遲":"더딜 지","遷":"옮길 천","選":"가릴 선","遺":"남길 유","遼":"멀 료","邊":"가 변","邏":"순라할 라","邑":"고을 읍","邦":"나라 방","邪":"간사할 사","郁":"성할 욱","郊":"들 교","郡":"고을 군","部":"나눌 부","郭":"성곽 곽","郵":"우편 우","鄕":"시골 향","都":"도읍 도","鄙":"더러울 비","鄭":"나라 정","鄰":"이웃 린","酉":"닭 유","酌":"술따를 작","配":"짝 배","酒":"술 주","酷":"심할 혹","酸":"실 산","醇":"순수할 순","醉":"취할 취","醒":"깰 성","醜":"추할 추","醫":"의원 의","釀":"술빚을 양","采":"캘 채","釋":"풀 석","里":"마을 리","重":"무거울 중","野":"들 야","量":"헤아릴 량","金":"쇠 금","針":"바늘 침","釣":"낚을 조","鈍":"둔할 둔","鈴":"방울 령","銘":"새길 명","銀":"은 은","銃":"총 총","銅":"구리 동","鋪":"펼 포","錄":"기록할 록","錦":"비단 금","鍊":"단련할 련","鍾":"종 종","鏡":"거울 경","鐸":"방울 탁","鑑":"거울 감","長":"길 장","門":"문 문","閃":"번쩍일 섬","閉":"닫을 폐","開":"열 개","閑":"한가할 한","間":"사이 간","閣":"집 각","閨":"규수 규","閱":"볼/겪을 열","闋":"마칠 결","闢":"열 벽","阜":"언덕 부","阡":"두둑 천","降":"내릴 강","陝":"좁을 섬","院":"집 원","陣":"진칠 진","陵":"언덕 릉","陰":"그늘 음","陳":"베풀 진","陸":"뭍 륙","陽":"볕 양","障":"막을 장","際":"즈음 제","隱":"숨을 은","隣":"이웃 린","隸":"종 례","雀":"참새 작","雁":"기러기 안","雄":"수컷 웅","雅":"맑을 아","集":"모을 집","雉":"꿩 치","雌":"암컷 자","雖":"비록 수","雙":"쌍 쌍","雛":"병아리 추","雜":"섞일 잡","難":"어려울 난","雨":"비 우","雪":"눈 설","雲":"구름 운","零":"떨어질 령","雷":"우레 뢰","電":"번개 전","震":"떨칠 진","霄":"하늘 소","霖":"장마 림","霜":"서리 상","霞":"노을 하","霧":"안개 무","露":"이슬 로","霸":"으뜸 패","靑":"푸를 청","靖":"편안할 정","靜":"고요할 정","非":"아닐 비","靡":"쓰러질 미","面":"얼굴 면","革":"가죽 혁","靴":"신 화","鞭":"채찍 편","音":"소리 음","韶":"풍류이름 소","韻":"운치 운","響":"울릴 향","頁":"머리 혈","頂":"정수리 정","頃":"이랑 경","項":"목 항","順":"순할 순","須":"모름지기 수","頌":"칭송할 송","預":"미리 예","頑":"완고할 완","頓":"조아릴 돈","頗":"자못 파","領":"거느릴 령","頭":"머리 두","頻":"자주 빈","顆":"낱알 과","題":"제목 제","顔":"얼굴 안","額":"이마 액","願":"원할 원","顧":"돌아볼 고","風":"바람 풍","飄":"나부낄 표","飛":"날 비","食":"밥 식","飡":"밥 손","飯":"밥 반","飲":"마실 음","餘":"남을 여","館":"집 관","首":"머리 수","香":"향기 향","馬":"말 마","馳":"달릴 치","馴":"길들일 순","駐":"머무를 주","駒":"망아지 구","駕":"멍에 가","駱":"낙타 락","驥":"천리마 기","骨":"뼈 골","體":"몸 체","高":"높을 고","髥":"구레나룻 염","髮":"터럭 발","鬢":"귀밑머리 빈","鬪":"싸울 투","鬯":"울창주 창","鬱":"답답할 울","鬼":"귀신 귀","魄":"넋 백","魂":"넋 혼","魅":"도깨비 매","魔":"마귀 마","魚":"물고기 어","魯":"노나라 로","鮮":"고울 선","鯨":"고래 경","鱗":"비늘 린","鳥":"새 조","鳧":"오리 부","鳩":"비둘기 구","鳳":"봉황 봉","鳴":"울 명","鳶":"솔개 연","鴈":"기러기 안","鴨":"오리 압","鴻":"기러기 홍","鵑":"두견새 견","鵠":"고니 곡","鵲":"까치 작","鵷":"원추새 원","鶯":"꾀꼬리 앵","鷗":"갈매기 구","鷺":"해오라기 로","鶴":"학 학","鸚":"앵무새 앵","鸞":"난새 란","鹿":"사슴 록","麟":"기린 린","麥":"보리 맥","麻":"삼 마","黃":"누를 황","黍":"기장 서","黎":"검을 려","黑":"검을 흑","默":"잠잠할 묵","黜":"내칠 출","點":"점 점","黨":"무리 당","鼎":"솥 정","鼓":"북 고","鼠":"쥐 서","鼻":"코 비","齊":"가지런할 제","齒":"이 치","齡":"나이 령","龍":"용 룡","龜":"거북 구/귀","鼇":"자라 오","籧":"올거미/여관 거","胷":"가슴 흉","奰":"성낼 비","蠏":"게 해","諠":"떠들썩할 훤","咿":"삐걱거릴/울 이","喔":"닭울 악","耿":"빛날/잠못이룰 경","欹":"기울 기","壠":"밭두둑/언덕 롱","縈":"얽힐 영","逕":"지름길 경","讖":"참서/조짐 참","癈":"폐할 폐","査":"조사할/깍깍울 사","捫":"어루만질 문","豁":"트일 활","迴":"돌 회","欞":"격자창 령","蹔":"잠깐 잠","摧":"꺾을 최","翬":"훨훨날 휘","扃":"빗장 경","羸":"파리할 리","津":"나루 진","酬":"갚을 수","嵓":"바위 암","疊":"포갤 첩","蟠":"서릴 반","碁":"바둑 기","攀":"휘어잡을 반","濤":"물결 도","次":"버금/차운할 차","袁":"옷길 원","蝸":"달팽이 와","綺":"비단 기","卑":"낮을 비","竭":"다할 갈","櫪":"말구유 력","霓":"무지개 예","霑":"적실 점","堤":"방죽 제","岧":"높을 초","闕":"대궐 궐","濱":"물가 빈","捲":"말 권","緲":"아득할 묘","萊":"명아주 래","闌":"가로막을/다할 란","囀":"지저귈 전","陌":"길 맥","梨":"배 리","塢":"둑/마을 오","慵":"게으를 용","簟":"대자리 점","翳":"가릴 예","猷":"꾀 유","戴":"일 대","裘":"갖옷 구","砧":"다듬잇돌 침","鴉":"까마귀 아","嵐":"남기 람","宸":"대궐 신","味":"맛 미","哉":"어조사 재","唐":"당나라 당","唯":"오직 유","問":"물을 문","嗟":"탄식할 차","嘆":"탄식할 탄","四":"넉 사","圖":"그림 도","在":"있을 재","坊":"동네/절 방","坤":"땅 곤","埋":"묻을 매","堪":"견딜 감","報":"갚을/알릴 보","境":"지경 경","墮":"떨어질 타","墻":"담 장","壺":"병 호","奔":"달릴 분","妨":"방해할 방","孔":"구멍/심히 공","容":"얼굴/모양 용","寓":"머무를 우","寵":"괼 총","封":"봉할 봉","對":"대할 대","岸":"언덕 안","嶂":"산봉우리 장","巖":"바위 암","巨":"클 거","帝":"임금 제","干":"방패 간","年":"해 년","幽":"그윽할 유","店":"가게 점","廬":"오두막/여관 려","弊":"해질 폐","徑":"지름길 경","恥":"부끄러울 치","悟":"깨달을 오","憤":"분할 분","掃":"쓸 소","揔":"다/모두 총","斫":"벨 작","映":"비칠 영","時":"때 시","晚":"늦을 만","暉":"빛날 휘","曙":"밝을 서","枕":"베개 침","根":"뿌리 근","業":"업 업","榻":"평상 탑","樓":"다락 루","欲":"하고자할 욕","欵":"정성 관","欺":"속일 기","歌":"노래 가","正":"바를 정","此":"이 차","步":"걸음 보","武":"굳셀 무","殺":"죽일 살","汴":"물 변","河":"물 하","泊":"머무를 박","泛":"뜰 범","泪":"눈물 루","洒":"뿌릴 쇄","浪":"물결 랑","淒":"쓸쓸할 처","準":"준할 준","溪":"시내 계","溶":"녹을/넘칠 용","滿":"찰 만","濃":"짙을 농","濕":"젖을 습","濛":"안개비 몽","瀘":"물 호","瀲":"넘실거릴 렴","火":"불 화","煬":"따뜻할 양","猶":"오히려 유","獺":"수달 달","理":"다스릴 리","甞":"맛볼 상","異":"다를 이","當":"마땅 당","登":"오를 등","眞":"참 진","睡":"잘 수","磎":"시내 계","祇":"다만 기","稻":"벼 도","窮":"다할 궁","章":"글월 장","笑":"웃을 소","管":"대롱 관","紈":"흰비단 환","紛":"어지러울 분","綠":"푸를 록","繫":"맬 계","纓":"갓끈 영","脚":"다리 각","腐":"썩을 부","腥":"비릴 성","膾":"회 회","蓋":"덮을 개","蓴":"순채 순","蕩":"쓸어버릴 탕","蕭":"쑥 소","薪":"땔나무 신","被":"입을 피","觸":"닿을 촉","計":"꾀 계","誅":"벨 주","語":"말씀 어","誤":"그릇될 오","貉":"담비/오소리 학","趨":"달릴 추","跎":"넘어질 타","踈":"성길 소","蹉":"미끄러질 차","輦":"가마 련","那":"어찌 나","酊":"취할 정","酣":"즐길/취할 감","酩":"취할 명","鑿":"뚫을 착","閒":"한가할 한","阻":"막힐 조","隨":"따를 수","隴":"언덕 롱","離":"떠날 리","頰":"뺨 협","頹":"무너질 퇴","餠":"떡 병","馮":"탈 풍","驚":"놀랄 경","髓":"골수 수","學":"배울 학","庚":"천간/별 경","寅":"동방/호랑이 인","贈":"줄 증","友":"벗 우","移":"옮길 이","壽":"목숨 수","平":"평평할 평","浦":"개포/물가 포","帆":"돛 범","湘":"강이름 상","夏":"여름 하","二":"두 이","崔":"높을/성 최","克":"이길 극","莘":"족두리풀 신","尹":"다스릴/성 윤","任":"맡길/성 임","襲":"엄습할/이을 습","淳":"순박할 순","椿":"참죽나무 춘","仁":"어질 인","澕":"물이름 화"};
+
+    // 제목용 한자/훈음 박스 생성 (쉼표나 부호는 그대로 통과)
+    function buildTitleCharBoxes(hanjaStr, soundStr) {
+      let html = '';
+      let soundIdx = 0;
+      for (let i = 0; i < hanjaStr.length; i++) {
+        const hj = hanjaStr[i];
+        if (hj === ',' || hj === ' ' || hj === '、' || hj === '，') {
+          html += `<span style="margin: 0 0.15rem; font-size:1.1rem; color:var(--text-muted);">${hj}</span>`;
+          if (soundStr && (soundStr[soundIdx] === hj || soundStr[soundIdx] === ' ')) {
+            soundIdx++;
+          }
+          continue;
+        }
+        const sound = (soundStr && soundStr[soundIdx]) ? soundStr[soundIdx] : '';
+        soundIdx++;
+        const hoon = hanjaDict[hj] || sound;
+        html += `
+          <span class="char-box title-char-box" tabindex="0" aria-label="${hj}: ${hoon}">
+            <span class="char-hanja">${hj}</span>
+            <span class="char-sound">${sound}</span>
+            <span class="char-hoon">${hoon}</span>
+            <span class="char-tooltip">
+              <span class="tt-char">${hj}</span>
+              <span class="tt-desc">${hoon}</span>
+            </span>
+          </span>
+        `;
+      }
+      return html;
+    }
+
+    function buildCharBoxes(hanjaStr, hangulStr) {
+      let html = '';
+      for (let i = 0; i < hanjaStr.length; i++) {
+        const hj = hanjaStr[i];
+        const sound = (hangulStr && hangulStr[i]) ? hangulStr[i] : '';
+        const hoon = hanjaDict[hj] || sound;
+        html += `
+          <span class="char-box" tabindex="0" aria-label="${hj}: ${hoon}">
+            <span class="char-hanja">${hj}</span>
+            <span class="char-sound">${sound}</span>
+            <span class="char-hoon">${hoon}</span>
+            <span class="char-tooltip">
+              <span class="tt-char">${hj}</span>
+              <span class="tt-desc">${hoon}</span>
+            </span>
+          </span>
+        `;
+      }
+      return html;
+    }
+
+    // 시 카드 렌더링
+    function renderPoems() {
+      const filtered = getFilteredPoems();
+      if (filtered.length === 0) {
+        poemContainer.innerHTML = `
+          <div style="text-align:center; padding: 4rem; color: var(--text-muted);">
+            <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">검색 결과가 없습니다.</p>
+            <p style="font-size: 0.9rem;">검색어를 변경하거나 다른 작가를 선택해 보세요.</p>
+          </div>
+        `;
+        return;
+      }
+
+      poemContainer.innerHTML = filtered.map(p => {
+        // 복사용 텍스트 준비
+        let copyText = `[${p.titleHanja} (${p.title})] - ${p.author}\n\n`;
+        if (p.lines) {
+          copyText += p.lines.map(l => `${l.hanja} (${l.hangul})\n${l.trans}`).join('\n\n');
+        } else if (p.subPoems) {
+          copyText += p.subPoems.map(sp => `${sp.subTitle}\n` + sp.lines.map(l => `${l.hanja} (${l.hangul})\n${l.trans}`).join('\n')).join('\n\n');
+        }
+
+        // 일반 시 본문 렌더링
+        let bodyHtml = '';
+        if (p.lines) {
+          const originalLines = p.lines.map((l, idx) => {
+            const isCoupletGap = (p.lines.length === 4 && idx === 1) || 
+                                 (p.lines.length === 8 && idx % 2 === 1 && idx < 7) ||
+                                 (p.lines.length > 8 && idx % 2 === 1);
+            return `<div class="line-group ${isCoupletGap ? 'couplet-gap' : ''}" data-idx="${idx}">${buildCharBoxes(l.hanja, l.hangul)}</div>`;
+          }).join('');
+
+          const transLines = p.lines.map((l, idx) => {
+            const isCoupletGap = (p.lines.length === 4 && idx === 1) || 
+                                 (p.lines.length === 8 && idx % 2 === 1 && idx < 7) ||
+                                 (p.lines.length > 8 && idx % 2 === 1);
+            return `<div class="trans-line ${isCoupletGap ? 'couplet-gap' : ''}" data-idx="${idx}">${l.trans}</div>`;
+          }).join('');
+
+          bodyHtml = `
+            <div class="poem-body">
+              <div class="poem-original">${originalLines}</div>
+              <div class="poem-translation">${transLines}</div>
+            </div>
+          `;
+        } else if (p.subPoems) {
+          // 북산잡제처럼 연작이 묶인 경우
+          bodyHtml = p.subPoems.map((sp, spIdx) => {
+            const origLines = sp.lines.map((l, idx) => `
+              <div class="line-group ${idx === 1 ? 'couplet-gap' : ''}" data-idx="sub-${spIdx}-${idx}">${buildCharBoxes(l.hanja, l.hangul)}</div>
+            `).join('');
+
+            const trLines = sp.lines.map((l, idx) => `
+              <div class="trans-line ${idx === 1 ? 'couplet-gap' : ''}" data-idx="sub-${spIdx}-${idx}">${l.trans}</div>
+            `).join('');
+
+            return `
+              <div style="margin-bottom: 1.5rem;">
+                <h4 style="font-family:'Noto Serif KR'; color:var(--accent-gold); margin-bottom:0.6rem; font-size:1.05rem;">${sp.subTitle}</h4>
+                <div class="poem-body">
+                  <div class="poem-original">${origLines}</div>
+                  <div class="poem-translation">${trLines}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // 주석 렌더링
+        let notesHtml = '';
+        if (p.notes && p.notes.length > 0) {
+          notesHtml = `
+            <div class="note-box">
+              <div class="note-box-title">
+                <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                시어 풀이 및 고사(故事)
+              </div>
+              <ul class="note-list">
+                ${p.notes.map(n => `<li class="note-item"><span class="note-key">${n.key} :</span> <span>${n.desc}</span></li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+
+        return `
+          <article class="poem-card" id="${p.id}">
+            <div class="poem-header">
+              <div class="poem-title-box">
+                <h3>
+                  <div class="title-hanja-group">${buildTitleCharBoxes(p.titleHanja, p.titleSound || '')}</div>
+                  <span class="title-trans-sub">(${p.title})</span>
+                </h3>
+                <div class="poem-meta">
+                  <span class="author-tag">${p.author}</span>
+                  <span class="form-tag">${p.form}</span>
+                  <span class="form-tag">${p.page}</span>
+                </div>
+              </div>
+              <div class="poem-actions">
+                <button class="btn-action btn-copy" data-copy="${encodeURIComponent(copyText)}" title="시 원문 및 번역 복사">
+                  <svg style="width:14px;height:14px;fill:currentColor;" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                  복사
+                </button>
+              </div>
+            </div>
+
+            ${bodyHtml}
+
+            <div class="poem-details">
+              ${notesHtml}
+              ${p.commentary ? `
+                <div class="note-box" style="border-left: 3px solid var(--accent-gold);">
+                  <div class="note-box-title" style="color:var(--text-main);">
+                    <svg style="width:16px;height:16px;fill:var(--accent);" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    감상 및 해설
+                  </div>
+                  <p style="color:var(--text-muted); line-height:1.7;">${p.commentary}</p>
+                </div>
+              ` : ''}
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // 복사 이벤트 연결
+      document.querySelectorAll(".btn-copy").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const text = decodeURIComponent(btn.dataset.copy);
+          navigator.clipboard.writeText(text).then(() => {
+            showToast();
+          });
+        });
+      });
+
+      // 구절 페어링 호버 이벤트 연결
+      document.querySelectorAll(".line-group, .trans-line").forEach(el => {
+        el.addEventListener("mouseenter", () => {
+          const card = el.closest(".poem-card");
+          const idx = el.dataset.idx;
+          if (card && idx !== undefined) {
+            card.querySelectorAll(`[data-idx="${idx}"]`).forEach(paired => {
+              paired.classList.add("highlight-paired");
+            });
+          }
+        });
+        el.addEventListener("mouseleave", () => {
+          const card = el.closest(".poem-card");
+          const idx = el.dataset.idx;
+          if (card && idx !== undefined) {
+            card.querySelectorAll(`[data-idx="${idx}"]`).forEach(paired => {
+              paired.classList.remove("highlight-paired");
+            });
+          }
+        });
+      });
+
+      // 모바일 한자 터치 팝업 바 연동
+      const mobileHanjaBar = document.getElementById("mobileHanjaBar");
+      const mhbChar = document.getElementById("mhbChar");
+      const mhbDesc = document.getElementById("mhbDesc");
+      const mhbCloseBtn = document.getElementById("mhbCloseBtn");
+
+      document.querySelectorAll(".char-box").forEach(box => {
+        box.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const hj = box.querySelector(".char-hanja")?.textContent || "";
+          const hoon = box.querySelector(".char-hoon")?.textContent || "";
+          const sound = box.querySelector(".char-sound")?.textContent || "";
+          if (hj && mobileHanjaBar) {
+            mhbChar.textContent = hj;
+            mhbDesc.textContent = hoon || sound;
+            mobileHanjaBar.classList.add("active");
+          }
+        });
+      });
+
+      if (mhbCloseBtn) {
+        mhbCloseBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          mobileHanjaBar.classList.remove("active");
+        });
+      }
+
+      document.addEventListener("click", (e) => {
+        if (mobileHanjaBar && !e.target.closest("#mobileHanjaBar") && !e.target.closest(".char-box")) {
+          mobileHanjaBar.classList.remove("active");
+        }
+      });
+    }
+
+    function showToast() {
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2000);
+    }
+
+    // 검색 이벤트
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderPoems();
+      renderToc();
+    });
+
+    // 3단계 한자 읽기 모드 (음독 / 훈과 음 / 숨김)
+    let currentCharMode = "sound";
+    document.body.setAttribute("data-char-mode", "sound");
+
+    const charModeGroup = document.getElementById("charModeGroup");
+    if (charModeGroup) {
+      charModeGroup.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          charModeGroup.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentCharMode = btn.dataset.mode;
+          document.body.setAttribute("data-char-mode", currentCharMode);
+        });
+      });
+    }
+
+    // 해석 토글
+    toggleTransBtn.addEventListener("click", () => {
+      showTrans = !showTrans;
+      toggleTransBtn.classList.toggle("active", showTrans);
+      document.body.classList.toggle("hide-translation", !showTrans);
+    });
+
+    // 글자 크기 조절
+    let currentFontSize = 16;
+    const fontIncBtn = document.getElementById("fontIncBtn");
+    const fontDecBtn = document.getElementById("fontDecBtn");
+    
+    if (fontIncBtn && fontDecBtn) {
+      fontIncBtn.addEventListener("click", () => {
+        if (currentFontSize < 22) {
+          currentFontSize += 1.5;
+          document.documentElement.style.fontSize = currentFontSize + "px";
+        }
+      });
+      fontDecBtn.addEventListener("click", () => {
+        if (currentFontSize > 13) {
+          currentFontSize -= 1.5;
+          document.documentElement.style.fontSize = currentFontSize + "px";
+        }
+      });
+    }
+
+    // 테마 변경
+    themeSelect.addEventListener("change", (e) => {
+      const theme = e.target.value;
+      if (theme === "light") {
+        document.documentElement.removeAttribute("data-theme");
+      } else {
+        document.documentElement.setAttribute("data-theme", theme);
+      }
+    });
+
+    // 초기화 실행
+    renderSidebar();
+    renderToc();
+    renderPoems();
+  </script>
+</body>
+</html>
